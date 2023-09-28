@@ -1,14 +1,5 @@
 nav {
   display: flex;
-  button {
-    background-color: #ffad4f;
-    border-radius: 3px;
-    margin: 5px;
-    border-style: none;
-    &:hover {
-      cursor: pointer;
-    }
-  }
 
   .buttonsdiv {
     margin-left: auto;

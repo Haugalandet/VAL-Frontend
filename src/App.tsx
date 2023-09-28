@@ -1,6 +1,5 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import "./styles/home.scss";
+
 import { LandingPage } from "./pages/landingpage";
 import { Route, Routes } from "react-router";
 import { Dashboard } from "./pages/dashboard";
