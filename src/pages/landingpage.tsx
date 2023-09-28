@@ -6,7 +6,6 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <body></body>
       <footer></footer>
     </>
   );

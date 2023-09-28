@@ -1,10 +1,12 @@
 import "../styles/navbar.scss";
 import { NavLink } from "react-router-dom";
 
+import logo from "../assets/logo.png";
+
 export function Navbar() {
   return (
     <nav>
-      <div>Poloins</div>
+      <img src={logo} alt="VAL Logo"/>
       <div className="buttonsdiv">
         <NavLink to="/dashboard">
           <button>Logg inn</button>

@@ -6,9 +6,7 @@ export function Dashboard() {
     <header>
       <Navbar />
     </header>
-    <body>
       <h1>Dashboard</h1>
-    </body>
     <footer>
       <p>
         VAL 2023

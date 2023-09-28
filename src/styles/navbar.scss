@@ -1,8 +1,16 @@
 nav {
   display: flex;
+  height: 5rem; // Set height on navbar, so that img/logo is shrunk
+
 
   .buttonsdiv {
     margin-left: auto;
   }
   
+  img {
+    // Shrinks logo, keeping the same aspect ratio
+    display: block;
+    width: auto;
+    height: 100%; // Height is decreased.
+  }
 }
