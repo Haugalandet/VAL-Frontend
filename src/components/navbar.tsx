@@ -1,12 +1,17 @@
 import "../styles/navbar.scss";
+import { NavLink } from "react-router-dom";
 
 export function Navbar() {
   return (
     <nav>
-      <div>Polions</div>
+      <div>Poloins</div>
       <div className="buttonsdiv">
-        <button>Logg inn</button>
-        <button>Registrer bruker</button>
+        <NavLink to="/dashboard">
+          <button>Logg inn</button>
+        </NavLink>
+        <NavLink to="/dashboard">
+          <button>Registrer bruker</button>
+        </NavLink>
       </div>
     </nav>
   );
