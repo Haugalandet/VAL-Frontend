@@ -1,3 +1,4 @@
+import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 
 export function LandingPage() {
@@ -6,7 +7,8 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <footer></footer>
+      <p>Landing page</p>
+      <Footer />
     </>
   );
 }

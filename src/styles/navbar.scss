@@ -7,9 +7,8 @@ nav {
     margin-left: auto;
   }
   
-  img {
+  img, .logo-link {
     // Shrinks logo, keeping the same aspect ratio
-    display: block;
     width: auto;
     height: 100%; // Height is decreased.
   }

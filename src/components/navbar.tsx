@@ -6,12 +6,14 @@ import logo from "../assets/logo.png";
 export function Navbar() {
   return (
     <nav>
-      <img src={logo} alt="VAL Logo"/>
+      <NavLink to="/" className="logo-link">
+        <img src={logo} alt="VAL Logo"/>
+      </NavLink>
       <div className="buttonsdiv">
-        <NavLink to="/dashboard">
+        <NavLink to="/login">
           <button>Logg inn</button>
         </NavLink>
-        <NavLink to="/dashboard">
+        <NavLink to="/register">
           <button>Registrer bruker</button>
         </NavLink>
       </div>

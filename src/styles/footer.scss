@@ -1,0 +1,15 @@
+footer {
+    background-color: #F1FEC6;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    // Used to center child elements
+    display: grid;
+    
+    // All children of footer
+    & * {
+        grid-column-start: 2;
+        grid-column-end: 2;
+    }
+}

@@ -1,3 +1,4 @@
+import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 
 export function Dashboard() {
@@ -7,11 +8,7 @@ export function Dashboard() {
       <Navbar />
     </header>
       <h1>Dashboard</h1>
-    <footer>
-      <p>
-        VAL 2023
-      </p>
-    </footer>
+    <Footer />
     </>
   );
 }
