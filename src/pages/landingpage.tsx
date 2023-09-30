@@ -1,4 +1,6 @@
 import { Navbar } from "../components/navbar";
+import { Publicpoll } from "../components/publicpoll";
+import { Title } from "../components/title";
 
 export function LandingPage() {
   return (
@@ -6,7 +8,10 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <body></body>
+      <body>
+        <Title />
+        <Publicpoll />
+      </body>
       <footer></footer>
     </>
   );
