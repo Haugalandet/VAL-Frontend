@@ -12,6 +12,7 @@ export function RegisterPage() {
       </header>
       <main>
         <Title title="Poling Polions" />
+        <h3>Register</h3>
         <article>
           <section>
             <label htmlFor="uname">Username: &nbsp;</label>

@@ -18,9 +18,9 @@ export function LoginPage() {
         <h3>Login</h3>
         <article>
           <section>
-            <label htmlFor="username">Username: </label>
+            <label htmlFor="username">Username: &nbsp;</label>
             <br />
-            <label htmlFor="password">Password:&nbsp; </label>
+            <label htmlFor="password">Password: &nbsp; </label>
           </section>
           <section>
             <input itemType="text" id="username"></input>
