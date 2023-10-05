@@ -9,7 +9,7 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-        <Title />
+        <Title title="Poling Poloins" />
         <Publicpoll />
       <Footer />
     </>

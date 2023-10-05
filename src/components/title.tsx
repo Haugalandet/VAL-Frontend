@@ -1,7 +1,7 @@
-export function Title() {
+export function Title(props: {title: string}) {
   return (
     <>
-      <div>Poling Poloins</div>
+      <div>{props.title}</div>
     </>
   );
 }
