@@ -1,0 +1,11 @@
+article {
+  display: flex;
+  .labeldiv {
+    text-align: right;
+  }
+
+  input {
+    border-radius: 3px;
+    border-style: hidden;
+  }
+}
