@@ -1,0 +1,12 @@
+article {
+  display: flex;
+  section {
+    label {
+      text-align: right;
+    }
+    input {
+      border-radius: 3px;
+      border-style: hidden;
+    }
+  }
+}
