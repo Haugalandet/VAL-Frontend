@@ -1,4 +1,5 @@
 import "../styles/navbar.scss";
+import "../styles/home.scss";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
@@ -6,10 +7,11 @@ import logo from "../assets/logo.png";
 export function Navbar() {
   return (
     <nav>
-      <div>Poloins AS</div>
+      
       <NavLink to="/" className="logo-link">
         <img src={logo} alt="VAL Logo"/>
       </NavLink>
+      <div>Poloins AS</div>
       <div className="buttonsdiv">
         <NavLink to="/login">
           <button>Logg inn</button>

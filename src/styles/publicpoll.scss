@@ -1,11 +1,13 @@
 .publicpoll {
-    display: flex;
-    border-color: rgb(165, 143, 143);
-    border-style: solid;
-    width: fit-content;
-    div{
-        div{
-            padding: 0.5rem;
-        }
+  display: flex;
+  border-color: #bfdf8e;
+  border-style: solid;
+  width: fit-content;
+  border-radius: 6px;
+  margin: 20px;
+  div {
+    div {
+      padding: 0.5rem;
     }
   }
+}

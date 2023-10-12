@@ -1,14 +1,29 @@
-html {
-    background-color: #bfdf8e;
+.logo-link {
+  margin-left: 10px;
 }
 
+html {
+  background-color: #bfdf8e;
+}
+
+main {
+  margin-left: 10px;
+  width: fit-content;
+  height: fit-content;
+  background-color: #f1fec6;
+  border-radius: 6px;
+  .title {
+    margin-left: 20px;
+    padding-top: 12px;
+  }
+}
 
 button {
-    background-color: #ffad4f;
-    border-radius: 3px;
-    margin: 5px;
-    border-style: none;
-    &:hover {
-      cursor: pointer;
-    }
+  background-color: #ffad4f;
+  border-radius: 3px;
+  margin: 5px;
+  border-style: none;
+  &:hover {
+    cursor: pointer;
+  }
 }

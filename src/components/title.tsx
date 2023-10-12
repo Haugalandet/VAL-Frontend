@@ -1,7 +1,7 @@
-export function Title(props: {title: string}) {
+export function Title(props: { title: string }) {
   return (
     <>
-      <div>{props.title}</div>
+      <h2 className="title">{props.title}</h2>
     </>
   );
 }
