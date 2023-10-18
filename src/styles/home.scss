@@ -12,9 +12,22 @@ main {
   height: fit-content;
   background-color: #f1fec6;
   border-radius: 6px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+
   .title {
     margin-left: 20px;
     padding-top: 12px;
+  }
+
+  article {
+    section {
+      input {
+        border: 1px #bfdf8e solid;
+
+      }
+    }
   }
 }
 

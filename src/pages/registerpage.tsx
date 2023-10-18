@@ -3,6 +3,7 @@ import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
 import "../styles/form.scss";
+import "../styles/home.scss";
 
 export function RegisterPage() {
   return (
@@ -29,9 +30,7 @@ export function RegisterPage() {
             <input type="password" id="passwd2" />
           </section>
         </article>
-        <br />
         <button>Register</button>
-        <br />
       </main>
       <Footer />
     </>
