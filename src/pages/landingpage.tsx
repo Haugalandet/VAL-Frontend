@@ -10,13 +10,7 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <main>
-        <Title title="Hot polls" />
-        <Publicpoll />
-        <Publicpoll />
-        <Publicpoll />
-        <Publicpoll />
-      </main>
+      <main>Kahoot</main>
       <Footer />
     </>
   );

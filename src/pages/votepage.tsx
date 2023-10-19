@@ -12,7 +12,7 @@ export function VotePage(props: { poll_id: string }) {
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))
+      .get(ApiRoot(`poll/${props.poll_id}/vote`))//poll instamce instead
       .then((res) => {
         setPoll(res.data);
       })
