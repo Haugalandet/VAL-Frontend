@@ -7,6 +7,7 @@ import { LoginPage } from "./pages/loginpage";
 import { RegisterPage } from "./pages/registerpage";
 import { MissingPage } from "./pages/missingpage";
 import { VotePage } from "./pages/votepage";
+import { CreatePollPage } from "./pages/createpoll";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/poll/*" element={<VotePage poll_id={""} />} />
+      <Route path="/edit/*" element={<CreatePollPage poll_id={0} />} />
       <Route path="/*" element={<MissingPage />} />
     </Routes>
   );
