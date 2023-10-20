@@ -6,6 +6,7 @@ import { Dashboard } from "./pages/dashboard";
 import { LoginPage } from "./pages/loginpage";
 import { RegisterPage } from "./pages/registerpage";
 import { MissingPage } from "./pages/missingpage";
+import { VotePage } from "./pages/votepage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/poll/*" element={<VotePage poll_id={""} />} />
       <Route path="/*" element={<MissingPage />} />
     </Routes>
   );

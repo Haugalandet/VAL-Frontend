@@ -22,8 +22,20 @@ export function VotePage(props: { poll_id: string }) {
   }, [props.poll_id]);
 
   if (!poll) {
-    return <Navigate to={`poll/${props.poll_id}/vote`} />;
+    // return <Navigate to={`poll/${props.poll_id}/vote`} />;
   }
+
+  let testPoll = {
+    id: 69,
+    title: "Testicle Poll",
+    description: "Are testicles?",
+    choices: [
+      "Yes",
+      "No",
+      "Maybe",
+      "Who are you, and how did you get into my house???",
+    ],
+  };
 
   return (
     <>
@@ -31,8 +43,7 @@ export function VotePage(props: { poll_id: string }) {
         <Navbar />
       </header>
       <Title title="Poling Poloins" />
-      {/* @ts-ignore */}
-      <RenderPoll poll={poll} />
+      <RenderPoll poll={testPoll} />
       <Footer />
     </>
   );
