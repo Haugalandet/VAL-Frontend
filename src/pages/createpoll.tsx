@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Title } from "../components/title";
-import axios from "axios";
-import { ApiRoot } from "../utils/consts";
-import { Navigate } from "react-router";
 import { RenderPoll } from "../components/render_poll";
+import { ApiRoot } from "../utils/consts";
+import axios from "axios";
 
-export function VotePage(props: { poll_id: string }) {
+export function CreatePollPage(props: { poll_id: number }) {
   const [poll, setPoll] = useState(null);
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))//poll instamce instead
+      .get(ApiRoot(`poll/${props.poll_id}/vote`))
       .then((res) => {
         setPoll(res.data);
       })
@@ -43,7 +41,7 @@ export function VotePage(props: { poll_id: string }) {
         <Navbar />
       </header>
       <main>
-        <Title title="Poling Poloins" />
+        <h1>Edit poll</h1>
         <RenderPoll poll={testPoll} />
       </main>
       <Footer />
