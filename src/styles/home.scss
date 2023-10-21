@@ -1,14 +1,42 @@
-html {
-    background-color: #bfdf8e;
+.logo-link {
+  margin-left: 10px;
 }
 
+html {
+  background-color: #bfdf8e;
+}
+
+main {
+  margin-left: 10px;
+  width: fit-content;
+  height: fit-content;
+  background-color: #f1fec6;
+  border-radius: 6px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+
+  .title {
+    margin-left: 20px;
+    padding-top: 12px;
+  }
+
+  article {
+    section {
+      input {
+        border: 1px #bfdf8e solid;
+
+      }
+    }
+  }
+}
 
 button {
-    background-color: #ffad4f;
-    border-radius: 3px;
-    margin: 5px;
-    border-style: none;
-    &:hover {
-      cursor: pointer;
-    }
+  background-color: #ffad4f;
+  border-radius: 3px;
+  margin: 5px;
+  border-style: none;
+  &:hover {
+    cursor: pointer;
+  }
 }

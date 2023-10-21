@@ -2,6 +2,7 @@ import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Publicpoll } from "../components/publicpoll";
 import { Title } from "../components/title";
+//import "../styles/landingpage.scss";
 
 export function LandingPage() {
   return (
@@ -9,8 +10,7 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-        <Title title="Poling Poloins" />
-        <Publicpoll />
+      <main>Kahoot</main>
       <Footer />
     </>
   );

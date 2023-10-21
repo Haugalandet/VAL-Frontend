@@ -2,7 +2,10 @@ import { NavLink } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
+import { ApiRoot } from "../utils/consts";
+import axios from "axios";
 import "../styles/form.scss";
+import "../styles/home.scss";
 
 export function RegisterPage() {
   return (
@@ -15,11 +18,11 @@ export function RegisterPage() {
         <h3>Register</h3>
         <article>
           <section>
-            <label htmlFor="uname">Username: &nbsp;</label>
+            <label htmlFor="username">Username: &nbsp;</label>
             <br />
-            <label htmlFor="passwd1">Password: &nbsp;</label>
+            <label htmlFor="password1">Password: &nbsp;</label>
             <br />
-            <label htmlFor="passwd2">Repeat password: &nbsp;</label>
+            <label htmlFor="password2">Repeat password: &nbsp;</label>
           </section>
           <section>
             <input type="text" id="uname" />
@@ -29,11 +32,26 @@ export function RegisterPage() {
             <input type="password" id="passwd2" />
           </section>
         </article>
-        <br />
         <button>Register</button>
-        <br />
       </main>
       <Footer />
     </>
   );
+
+  function register() {
+    let username = document.getElementById("#username");
+    let password = document.getElementById("#password1");
+    let passwordrepeated = document.getElementById("#password2");
+
+    axios
+      .post(ApiRoot("/users"), {
+        username: username,
+        password: password,
+        passwordrepeated: passwordrepeated,
+      })
+      .then((_) => {
+        console.log("User registered");
+      })
+      .catch((err) => console.log(err));
+  }
 }

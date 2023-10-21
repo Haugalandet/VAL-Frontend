@@ -28,11 +28,12 @@ export function LoginPage() {
             <input type="password" id="password"></input>
           </section>
         </article>
-      </main>
-
-      <button className="login" onClick={() => login()}>
+        <button className="login" onClick={() => login()}>
         Login
       </button>
+      </main>
+
+    
       <Footer />
     </>
   );
