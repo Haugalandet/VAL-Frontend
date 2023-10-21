@@ -2,7 +2,7 @@ import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Publicpoll } from "../components/publicpoll";
 import { Title } from "../components/title";
-//import "../styles/landingpage.scss";
+import "../styles/landingpage.scss";
 
 export function LandingPage() {
   return (
@@ -10,7 +10,17 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <main>Kahoot</main>
+      <main id="landingpagemain">
+        <article>
+          <section id="landingpagesection">
+            Enter poll id to vote: <br />
+            <input type="text" />
+          </section>
+        </article>
+      </main>
+
+      {/*om man er logget inn eller ikke må man ha id-en til pollen for å stemme,
+      noen poller sjekker i tillegg om man er logget inn */}
       <Footer />
     </>
   );

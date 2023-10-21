@@ -1,0 +1,23 @@
+main#landingpagemain {
+  background-color: transparent;
+  article {
+    section {
+      width: fit-content;
+      height: fit-content;
+      background-color: #f1fec6;
+      border-radius: 6px;
+      padding-right: 15px;
+      padding-left: 15px;
+      padding-bottom: 10px;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      input {
+        border: 1px #bfdf8e solid;
+      }
+    }
+  }
+}

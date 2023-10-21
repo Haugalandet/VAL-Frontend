@@ -4,7 +4,7 @@ import "../styles/poll.scss";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
-    <article id={props.poll.id.toString()}>
+    <article id={props.poll.id.toString()} className="poll">
       <Title title={props.poll.title} />
       <p>{props.poll.description}</p>
       <select>

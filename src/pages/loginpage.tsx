@@ -13,7 +13,7 @@ export function LoginPage() {
         <Navbar />
       </header>
 
-      <main>
+      <main className="input">
         <Title title="Poling Polions" />
         <h3>Login</h3>
         <article>
@@ -29,11 +29,10 @@ export function LoginPage() {
           </section>
         </article>
         <button className="login" onClick={() => login()}>
-        Login
-      </button>
+          Login
+        </button>
       </main>
 
-    
       <Footer />
     </>
   );

@@ -6,7 +6,7 @@ html {
   background-color: #bfdf8e;
 }
 
-main {
+main.input{
   margin-left: 10px;
   width: fit-content;
   height: fit-content;
@@ -25,7 +25,6 @@ main {
     section {
       input {
         border: 1px #bfdf8e solid;
-
       }
     }
   }

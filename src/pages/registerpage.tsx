@@ -13,7 +13,7 @@ export function RegisterPage() {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="input">
         <Title title="Poling Polions" />
         <h3>Register</h3>
         <article>
