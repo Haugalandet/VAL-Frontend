@@ -14,7 +14,7 @@ export function LandingPage() {
         <article>
           <section id="landingpagesection">
             Enter poll id to vote: <br />
-            <input type="text" />
+            <input type="number" />
           </section>
         </article>
       </main>
