@@ -1,14 +1,16 @@
+import { NavLink } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 
 export function Dashboard() {
   return (
     <>
-    <header>
-      <Navbar />
-    </header>
+      <header>
+        <Navbar />
+      </header>
       <h1>Dashboard</h1>
-    <Footer />
+      <NavLink to={"create"}>New Poll</NavLink>
+      <Footer />
     </>
   );
 }

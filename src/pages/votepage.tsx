@@ -5,7 +5,7 @@ import { Title } from "../components/title";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { Navigate } from "react-router";
-import { RenderPoll } from "../components/render_poll";
+import { RenderPollVote } from "../components/render_poll";
 import { useTest } from "../components/test_context";
 import { defaultPoll } from "../utils/funcs";
 
@@ -47,7 +47,7 @@ export function VotePage(props: { poll_id: string }) {
       </header>
       <main>
         <Title title="Poling Poloins" />
-        <RenderPoll poll={test ? testPoll : poll} />
+        <RenderPollVote poll={test ? testPoll : poll} />
       </main>
       <Footer />
     </>
