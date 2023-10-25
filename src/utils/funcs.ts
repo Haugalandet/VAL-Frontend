@@ -4,6 +4,7 @@ export function defaultUser(): User {
   return {
     username: "NONE",
     password: "NONE123",
+    tokens: "",
   };
 }
 

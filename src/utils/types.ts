@@ -8,4 +8,5 @@ export type Poll = {
 export type User = {
   username: string;
   password: string;
+  tokens: string;
 };

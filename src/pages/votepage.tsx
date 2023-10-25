@@ -11,11 +11,12 @@ import { defaultPoll } from "../utils/funcs";
 
 export function VotePage(props: { poll_id: string }) {
   const [poll, setPoll] = useState(defaultPoll());
+  const [choices, setChoice] = useState([]);
   const test = useTest();
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`)) //poll instamce instead
+      .get(ApiRoot(`polls/${props.poll_id}/instances`))
       .then((res) => {
         setPoll(res.data);
       })
@@ -24,8 +25,24 @@ export function VotePage(props: { poll_id: string }) {
       });
   }, [props.poll_id]);
 
-  if (poll.id === -1 && !test) {
-    return <Navigate to={`polls/${props.poll_id}/vote`} />;
+  useEffect(() => {
+    axios
+      .get(ApiRoot(`polls/${props.poll_id}/choices`))
+      .then((res) => {
+        setChoice(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.poll_id]);
+
+  /*
+    if poll.id is the default id, or if no choices were retrieved we redirect to an error vote page
+    TODO: Create error vote page
+    (will be missing page atm)
+  */
+  if ((poll.id === -1 || choices.length === 0) && !test) {
+    return <Navigate to={`poll/${props.poll_id}`} />;
   }
 
   let testPoll = {
@@ -39,6 +56,8 @@ export function VotePage(props: { poll_id: string }) {
       "Who are you, and how did you get into my house???",
     ],
   };
+
+  poll.choices = choices;
 
   return (
     <>
