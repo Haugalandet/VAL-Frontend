@@ -16,8 +16,8 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/create" element={<CreatePollPage poll_id={0} />} />
       <Route path="/poll/*" element={<VotePage poll_id={""} />} />
-      <Route path="/edit/*" element={<CreatePollPage poll_id={0} />} />
       <Route path="/*" element={<MissingPage />} />
     </Routes>
   );

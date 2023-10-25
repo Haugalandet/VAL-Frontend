@@ -6,13 +6,16 @@ import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { Navigate } from "react-router";
 import { RenderPoll } from "../components/render_poll";
+import { useTest } from "../components/test_context";
+import { defaultPoll } from "../utils/funcs";
 
 export function VotePage(props: { poll_id: string }) {
-  const [poll, setPoll] = useState(null);
+  const [poll, setPoll] = useState(defaultPoll());
+  const test = useTest();
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))//poll instamce instead
+      .get(ApiRoot(`poll/${props.poll_id}/vote`)) //poll instamce instead
       .then((res) => {
         setPoll(res.data);
       })
@@ -21,8 +24,8 @@ export function VotePage(props: { poll_id: string }) {
       });
   }, [props.poll_id]);
 
-  if (!poll) {
-    // return <Navigate to={`poll/${props.poll_id}/vote`} />;
+  if (poll.id === -1 && !test) {
+    return <Navigate to={`polls/${props.poll_id}/vote`} />;
   }
 
   let testPoll = {
@@ -44,7 +47,7 @@ export function VotePage(props: { poll_id: string }) {
       </header>
       <main>
         <Title title="Poling Poloins" />
-        <RenderPoll poll={testPoll} />
+        <RenderPoll poll={test ? testPoll : poll} />
       </main>
       <Footer />
     </>
