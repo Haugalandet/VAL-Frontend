@@ -17,13 +17,14 @@ function App() {
   const user = useUser();
 
   const refreshConnection = async () => {
-    try {
-      axios.post(ApiRoot("users/refresh")).then((res) => {
+    axios
+      .post(ApiRoot("users/refresh"))
+      .then((res) => {
         user.tokens = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } catch (error) {
-      console.error("Connection refresh failed", error);
-    }
   };
 
   useEffect(() => {
