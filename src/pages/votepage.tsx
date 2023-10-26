@@ -6,13 +6,14 @@ import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { Navigate } from "react-router";
 import { RenderPoll } from "../components/render_poll";
+import "../styles/home.scss";
 
 export function VotePage(props: { poll_id: string }) {
   const [poll, setPoll] = useState(null);
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))//poll instamce instead
+      .get(ApiRoot(`poll/${props.poll_id}/vote`)) //poll instance instead
       .then((res) => {
         setPoll(res.data);
       })
@@ -42,7 +43,7 @@ export function VotePage(props: { poll_id: string }) {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="input">
         <Title title="Poling Poloins" />
         <RenderPoll poll={testPoll} />
       </main>
