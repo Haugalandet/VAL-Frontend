@@ -4,3 +4,9 @@ export type Poll = {
   description: string;
   choices: string[];
 };
+
+export type User = {
+  username: string;
+  password: string;
+  tokens: string;
+};
