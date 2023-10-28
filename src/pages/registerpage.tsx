@@ -6,12 +6,16 @@ import axios from "axios";
 import "../styles/form.scss";
 import "../styles/home.scss";
 import { useState } from "react";
-import { stringify } from "querystring";
+import { useUser } from "../components/user_context";
+import { compare, hash } from "../components/hashing";
+import { Navigate } from "react-router";
 
 export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+
+  const user = useUser();
 
   // @ts-ignore
   const handleUsernameChange = (event) => {
@@ -20,12 +24,20 @@ export function RegisterPage() {
 
   // @ts-ignore
   const handlePassword1Change = (event) => {
-    setPassword1(event.target.value);
+    let pswd = event.target.value;
+
+    hash(pswd)
+      .then((res) => setPassword1(pswd))
+      .catch((err) => console.log("Could not hash password: ", err));
   };
 
   // @ts-ignore
   const handlePassword2Change = (event) => {
-    setPassword2(event.target.value);
+    let pswd = event.target.value;
+
+    hash(pswd)
+      .then((res) => setPassword2(pswd))
+      .catch((err) => console.log("Could not hash password: ", err));
   };
 
   return (
@@ -66,7 +78,20 @@ export function RegisterPage() {
     </>
   );
 
-  function register() {
+  async function register() {
+    let res = await compare(password1, password2)
+      .then((r) => {
+        return r;
+      })
+      .catch((err) => {
+        console.log("Failed to compare the hashes: ", err);
+        return false;
+      });
+
+    if (res) {
+      alert("Password are not equal");
+    }
+
     // TODO: Add default axios instance too be used everywhere
     const axiosInstance = axios.create({
       baseURL: ApiRoot("users"),
@@ -81,11 +106,13 @@ export function RegisterPage() {
         JSON.stringify({
           username: username,
           password: password1,
-          passwordrepeated: password2,
         })
       )
       .then((_) => {
         console.log("User registered");
+        user.username = username;
+        user.password = password1;
+        return <Navigate to={"dashboard"} />;
       })
       .catch((err) => console.log(err));
   }
