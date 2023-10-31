@@ -7,15 +7,32 @@ import "../styles/form.scss";
 import "../styles/home.scss";
 import { useState } from "react";
 import { useUser } from "../components/user_context";
-import { compare, hash } from "../components/hashing";
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 
 export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-
   const user = useUser();
+
+  // @ts-ignore
+  const register = (_) => {
+    if (password1 !== password2) {
+      alert("Password are not equal");
+    }
+
+    axios
+      .post(ApiRoot("users"), {
+        username: username,
+        password: password1,
+      })
+      .then((_) => {
+        console.log("User registered");
+        user.username = username;
+        user.password = password1;
+      })
+      .catch((err) => console.log(err));
+  };
 
   // @ts-ignore
   const handleUsernameChange = (event) => {
@@ -25,19 +42,13 @@ export function RegisterPage() {
   // @ts-ignore
   const handlePassword1Change = (event) => {
     let pswd = event.target.value;
-
-    hash(pswd)
-      .then((res) => setPassword1(pswd))
-      .catch((err) => console.log("Could not hash password: ", err));
+    setPassword1(pswd);
   };
 
   // @ts-ignore
   const handlePassword2Change = (event) => {
     let pswd = event.target.value;
-
-    hash(pswd)
-      .then((res) => setPassword2(pswd))
-      .catch((err) => console.log("Could not hash password: ", err));
+    setPassword2(pswd);
   };
 
   return (
@@ -72,48 +83,9 @@ export function RegisterPage() {
             />
           </section>
         </article>
-        <button onClick={() => register()}>Register</button>
+        <button onClick={register}>Register</button>
       </main>
       <Footer />
     </>
   );
-
-  async function register() {
-    let res = await compare(password1, password2)
-      .then((r) => {
-        return r;
-      })
-      .catch((err) => {
-        console.log("Failed to compare the hashes: ", err);
-        return false;
-      });
-
-    if (res) {
-      alert("Password are not equal");
-    }
-
-    // TODO: Add default axios instance too be used everywhere
-    const axiosInstance = axios.create({
-      baseURL: ApiRoot("users"),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    axiosInstance
-      .post(
-        ApiRoot("users"),
-        JSON.stringify({
-          username: username,
-          password: password1,
-        })
-      )
-      .then((_) => {
-        console.log("User registered");
-        user.username = username;
-        user.password = password1;
-        return <Navigate to={"dashboard"} />;
-      })
-      .catch((err) => console.log(err));
-  }
 }

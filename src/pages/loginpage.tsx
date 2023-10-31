@@ -1,12 +1,35 @@
-import { NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
 import "../styles/form.scss";
+import { useState } from "react";
+import { useUser } from "../components/user_context";
+import { useCookies } from "react-cookie";
 
 export function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [cookie, setCookie] = useCookies(["Authorization"]);
+  const user = useUser();
+
+  if (user.username !== "") {
+    login();
+  }
+
+  // @ts-ignore
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  // @ts-ignore
+  const handlePasswordChange = (event) => {
+    let pswd = event.target.value;
+    setPassword(pswd);
+  };
+
   return (
     <>
       <header>
@@ -23,9 +46,17 @@ export function LoginPage() {
             <label htmlFor="password">Password: &nbsp; </label>
           </section>
           <section>
-            <input itemType="text" id="username"></input>
+            <input
+              itemType="text"
+              id="username"
+              onChange={handleUsernameChange}
+            ></input>
             <br />
-            <input type="password" id="password"></input>
+            <input
+              type="password"
+              id="password"
+              onChange={handlePasswordChange}
+            ></input>
           </section>
         </article>
         <button className="login" onClick={() => login()}>
@@ -36,19 +67,19 @@ export function LoginPage() {
       <Footer />
     </>
   );
-}
 
-function login() {
-  let name = document.getElementById("#username");
-  let pswd = document.getElementById("#password");
-
-  axios
-    .post(ApiRoot("auth/login"), {
-      username: name,
-      password: pswd,
-    })
-    .then((_) => {
-      console.log("Logged in");
-    })
-    .catch((err) => console.log(err));
+  function login() {
+    axios
+      .post(ApiRoot("auth/login"), {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        setCookie("Authorization", res.data);
+        user.username = username;
+        user.password = password;
+        <Navigate to={"/dashboard"} />;
+      })
+      .catch((err) => console.log(err));
+  }
 }
