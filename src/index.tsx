@@ -4,8 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from "./components/user_context";
-import { TestProvider } from "./components/test_context";
 import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(
@@ -14,13 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TestProvider>
-        <UserProvider>
-          <CookiesProvider>
-            <App />
-          </CookiesProvider>
-        </UserProvider>
-      </TestProvider>
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

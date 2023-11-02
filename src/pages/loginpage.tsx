@@ -6,18 +6,12 @@ import { ApiRoot } from "../utils/consts";
 import axios from "axios";
 import "../styles/form.scss";
 import { useState } from "react";
-import { useUser } from "../components/user_context";
 import { useCookies } from "react-cookie";
 
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["Authorization"]);
-  const user = useUser();
-
-  if (user.username !== "") {
-    login();
-  }
 
   // @ts-ignore
   const handleUsernameChange = (event) => {
@@ -76,8 +70,6 @@ export function LoginPage() {
       })
       .then((res) => {
         setCookie("Authorization", res.data);
-        user.username = username;
-        user.password = password;
         <Navigate to={"/dashboard"} />;
       })
       .catch((err) => console.log(err));

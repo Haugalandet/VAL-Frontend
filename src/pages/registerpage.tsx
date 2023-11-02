@@ -6,14 +6,12 @@ import axios from "axios";
 import "../styles/form.scss";
 import "../styles/home.scss";
 import { useState } from "react";
-import { useUser } from "../components/user_context";
 import { Navigate } from "react-router-dom";
 
 export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const user = useUser();
 
   // @ts-ignore
   const register = (_) => {
@@ -28,8 +26,6 @@ export function RegisterPage() {
       })
       .then((_) => {
         console.log("User registered");
-        user.username = username;
-        user.password = password1;
       })
       .catch((err) => console.log(err));
   };

@@ -8,13 +8,11 @@ import { Navigate } from "react-router";
 import { RenderPoll } from "../components/render_poll";
 import "../styles/home.scss";
 import { RenderPollVote } from "../components/render_poll";
-import { useTest } from "../components/test_context";
 import { defaultPoll } from "../utils/funcs";
 
 export function VotePage(props: { poll_id: string }) {
   const [poll, setPoll] = useState(defaultPoll());
   const [choices, setChoice] = useState([]);
-  const test = useTest();
 
   useEffect(() => {
     axios
@@ -68,7 +66,7 @@ export function VotePage(props: { poll_id: string }) {
       </header>
       <main className="input">
         <Title title="Poling Poloins" />
-        <RenderPollVote poll={test ? testPoll : poll} />
+        <RenderPollVote poll={testPoll} />
       </main>
       <Footer />
     </>
