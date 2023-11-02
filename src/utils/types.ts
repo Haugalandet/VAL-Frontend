@@ -1,17 +1,21 @@
 export type Poll = {
+  id?: number;
   title: string;
   description: string;
   needLogin: boolean;
+  startTime?: Date;
+  endTime?: Date;
   choices: Choice[];
 };
 
 export type User = {
+  id?: number;
   username: string;
   password: string;
   tokens: string;
 };
 
 export type Choice = {
-  name: string;
+  title: string;
   description: string;
 };

@@ -14,7 +14,21 @@ export function RenderPoll(props: { poll: Poll }) {
       <p>{props.poll.description}</p>
       <select id="vote">
         {props.poll.choices.map((c) => {
-          return <option value={c.name}>{c.name}</option>;
+          return <option value={c.title}>{c.title}</option>;
+        })}
+      </select>
+    </article>
+  );
+}
+
+export function RenderPollTiny(props: { poll: Poll }) {
+  return (
+    <article className="poll">
+      <Title title={props.poll.title} />
+      <p>{props.poll.description}</p>
+      <select id="vote">
+        {props.poll.choices.map((c) => {
+          return <option value={c.title}>{c.title}</option>;
         })}
       </select>
     </article>
@@ -40,8 +54,8 @@ export function RenderPollVote(props: { poll: Poll }) {
       <select value={selectedValue} onChange={handleSelectChange}>
         {props.poll.choices.map((c) => {
           return (
-            <option value={c.name} key={c.name}>
-              {c.name}
+            <option value={c.title} key={c.title}>
+              {c.title}
             </option>
           );
         })}
@@ -177,7 +191,7 @@ function MultipleChoiceEditor({
           <div key={index}>
             <input
               type="text"
-              value={option.name}
+              value={option.title}
               onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button onClick={() => removeOption(index)}>Remove</button>
