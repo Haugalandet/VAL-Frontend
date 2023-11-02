@@ -2,8 +2,6 @@ import { Poll } from "../utils/types";
 import { Title } from "./title";
 import "../styles/poll.scss";
 import { useState } from "react";
-import axios from "axios";
-import { ApiRoot } from "../utils/consts";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -46,5 +44,115 @@ export function RenderPollVote(props: { poll: Poll }) {
       </select>
       <button onClick={() => vote()}>Vote</button>
     </article>
+  );
+}
+
+export function CreatePoll(props: { poll: Poll }) {
+  const [createdPoll, setCreatedPoll] = useState(props.poll);
+
+  // @ts-ignore
+  const updateTitle = (event) => {
+    let p = createdPoll;
+    p.title = event.target.value;
+    setCreatedPoll(p);
+  };
+
+  // @ts-ignore
+  const updateDesc = (event) => {
+    let p = createdPoll;
+    p.description = event.target.value;
+    setCreatedPoll(p);
+  };
+
+  const updateChoice = (options: string[]) => {
+    let p = createdPoll;
+    p.choices = options;
+    setCreatedPoll(p);
+  };
+
+  const savePoll = () => {
+    console.log(createdPoll);
+  };
+
+  return (
+    <article>
+      <label>
+        Title
+        <input
+          type="text"
+          name="title"
+          value={props.poll.title}
+          onChange={updateTitle}
+        />
+      </label>
+      <label>
+        Description
+        <input
+          type="text"
+          name="desc"
+          value={props.poll.description}
+          onChange={updateDesc}
+        />
+      </label>
+      <label>
+        Choices
+        <MultipleChoiceEditor
+          choices={props.poll.choices}
+          onOptionsChange={updateChoice}
+        />
+      </label>
+      <button onClick={savePoll}>Save</button>
+    </article>
+  );
+}
+
+interface MCEProps {
+  choices: string[];
+  onOptionsChange?: (newOptions: string[]) => void;
+}
+
+function MultipleChoiceEditor({
+  choices,
+  onOptionsChange = () => {},
+}: MCEProps) {
+  const [options, setOptions] = useState(choices);
+
+  const addOption = () => {
+    setOptions([...options, ""]);
+    onOptionsChange([...options, ""]);
+  };
+
+  // @ts-ignore
+  const removeOption = (index) => {
+    const updatedOptions = [...options];
+    updatedOptions.splice(index, 1);
+    setOptions(updatedOptions);
+    onOptionsChange(updatedOptions);
+  };
+
+  // @ts-ignore
+  const handleOptionChange = (index, value) => {
+    const updatedOptions = [...options];
+    updatedOptions[index] = value;
+    setOptions(updatedOptions);
+    onOptionsChange(updatedOptions);
+  };
+
+  return (
+    <div>
+      {options.map((option, index) => {
+        return (
+          <div key={index}>
+            <input
+              type="text"
+              value={option}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
+            />
+            <button onClick={() => removeOption(index)}>Remove</button>
+          </div>
+        );
+      })}
+      <button onClick={addOption}>Add</button>
+    </div>
   );
 }

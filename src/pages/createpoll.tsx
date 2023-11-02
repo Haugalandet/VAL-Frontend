@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { RenderPoll } from "../components/render_poll";
+import { CreatePoll, RenderPoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
 
@@ -42,7 +42,7 @@ export function CreatePollPage(props: { poll_id: number }) {
       </header>
       <main>
         <h1>Edit poll</h1>
-        <RenderPoll poll={testPoll} />
+        <CreatePoll poll={testPoll} />
       </main>
       <Footer />
     </>
