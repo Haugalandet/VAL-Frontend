@@ -1,4 +1,4 @@
-import { Poll, User } from "./types";
+import { Choice, Poll, User } from "./types";
 
 export function defaultUser(): User {
   return {
@@ -17,6 +17,13 @@ export function defaultPoll(): Poll {
     title: "NONE",
     needLogin: false,
     description: "NONE\nNONE\nNONE",
-    choices: ["A", "B", "C"],
+    choices: [defaultChoice(), defaultChoice("B"), defaultChoice("C")],
+  };
+}
+
+export function defaultChoice(s: string = "A"): Choice {
+  return {
+    name: s,
+    description: "",
   };
 }

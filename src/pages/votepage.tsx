@@ -8,7 +8,7 @@ import { Navigate } from "react-router";
 import { RenderPoll } from "../components/render_poll";
 import "../styles/home.scss";
 import { RenderPollVote } from "../components/render_poll";
-import { defaultPoll } from "../utils/funcs";
+import { defaultChoice, defaultPoll } from "../utils/funcs";
 
 export function VotePage(props: { poll_id: string }) {
   const [poll, setPoll] = useState(defaultPoll());
@@ -51,10 +51,10 @@ export function VotePage(props: { poll_id: string }) {
     description: "Are testicles?",
     needLogin: false,
     choices: [
-      "Yes",
-      "No",
-      "Maybe",
-      "Who are you, and how did you get into my house???",
+      defaultChoice("Yes"),
+      defaultChoice("No"),
+      defaultChoice("Maybe"),
+      defaultChoice("Who are you, and how did you get into my house???"),
     ],
   };
 

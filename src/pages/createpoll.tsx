@@ -4,6 +4,7 @@ import { Navbar } from "../components/navbar";
 import { CreatePoll, RenderPoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
+import { defaultChoice } from "../utils/funcs";
 
 export function CreatePollPage(props: { poll_id: number }) {
   const [poll, setPoll] = useState(null);
@@ -29,10 +30,10 @@ export function CreatePollPage(props: { poll_id: number }) {
     description: "Are testicles?",
     needLogin: false,
     choices: [
-      "Yes",
-      "No",
-      "Maybe",
-      "Who are you, and how did you get into my house???",
+      defaultChoice("Yes"),
+      defaultChoice("No"),
+      defaultChoice("Maybe"),
+      defaultChoice("Who are you, and how did you get into my house???"),
     ],
   };
 

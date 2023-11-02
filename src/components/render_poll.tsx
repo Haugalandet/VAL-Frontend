@@ -1,9 +1,11 @@
-import { Poll } from "../utils/types";
+import { Choice, Poll } from "../utils/types";
 import { Title } from "./title";
 import "../styles/poll.scss";
 import { useState } from "react";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
+import { useCookies } from "react-cookie";
+import { defaultChoice } from "../utils/funcs";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -12,7 +14,7 @@ export function RenderPoll(props: { poll: Poll }) {
       <p>{props.poll.description}</p>
       <select id="vote">
         {props.poll.choices.map((c) => {
-          return <option value={c}>{c}</option>;
+          return <option value={c.name}>{c.name}</option>;
         })}
       </select>
     </article>
@@ -38,8 +40,8 @@ export function RenderPollVote(props: { poll: Poll }) {
       <select value={selectedValue} onChange={handleSelectChange}>
         {props.poll.choices.map((c) => {
           return (
-            <option value={c} key={c}>
-              {c}
+            <option value={c.name} key={c.name}>
+              {c.name}
             </option>
           );
         })}
@@ -51,6 +53,7 @@ export function RenderPollVote(props: { poll: Poll }) {
 
 export function CreatePoll(props: { poll: Poll }) {
   const [createdPoll, setCreatedPoll] = useState(props.poll);
+  const [cookie] = useCookies([]);
 
   // @ts-ignore
   const updateTitle = (event) => {
@@ -66,15 +69,22 @@ export function CreatePoll(props: { poll: Poll }) {
     setCreatedPoll(p);
   };
 
-  const updateChoice = (options: string[]) => {
+  const updateChoice = (options: Choice[]) => {
     let p = createdPoll;
     p.choices = options;
     setCreatedPoll(p);
   };
 
   const createPoll = () => {
+    let config = {
+      headers: {
+        //@ts-ignore
+        Authorization: cookie["Authorization"],
+      },
+    };
+
     axios
-      .post(ApiRoot("polls"), createdPoll)
+      .post(ApiRoot("polls"), createdPoll, config)
       .then((r) => {
         console.log("Created Poll");
       })
@@ -129,8 +139,8 @@ export function CreatePoll(props: { poll: Poll }) {
 }
 
 interface MCEProps {
-  choices: string[];
-  onOptionsChange?: (newOptions: string[]) => void;
+  choices: Choice[];
+  onOptionsChange?: (newOptions: Choice[]) => void;
 }
 
 function MultipleChoiceEditor({
@@ -140,8 +150,8 @@ function MultipleChoiceEditor({
   const [options, setOptions] = useState(choices);
 
   const addOption = () => {
-    setOptions([...options, ""]);
-    onOptionsChange([...options, ""]);
+    setOptions([...options, defaultChoice()]);
+    onOptionsChange([...options, defaultChoice()]);
   };
 
   // @ts-ignore
@@ -167,7 +177,7 @@ function MultipleChoiceEditor({
           <div key={index}>
             <input
               type="text"
-              value={option}
+              value={option.name}
               onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button onClick={() => removeOption(index)}>Remove</button>
