@@ -1,10 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
-import { Poll } from "../utils/types";
 import { RenderPollTiny } from "../components/render_poll";
 import { pollExamples } from "../utils/funcs";
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useCookies } from "react-cookie";
-import { defaultChoice } from "../utils/funcs";
+import { defaultChoice, isPollOpen } from "../utils/funcs";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -22,15 +22,45 @@ export function RenderPoll(props: { poll: Poll }) {
 }
 
 export function RenderPollTiny(props: { poll: Poll }) {
+  const openPoll = () => {
+    axios
+      .post(ApiRoot(`polls/${props.poll.id}/start`))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const closePoll = () => {
+    axios
+      .post(ApiRoot(`polls/${props.poll.id}/end`))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <article className="poll">
-      <Title title={props.poll.title} />
-      <p>{props.poll.description}</p>
-      <select id="vote">
-        {props.poll.choices.map((c) => {
-          return <option value={c.title}>{c.title}</option>;
-        })}
-      </select>
+    <article className="tiny-poll">
+      <h4>{props.poll.title}</h4>
+      <small>{props.poll.description}</small>
+      <br />
+      {props.poll.choices.map((c) => {
+        return <p>{c.title}</p>;
+      })}
+      {isPollOpen(props.poll) ? (
+        <button onClick={closePoll} className="close">
+          Close
+        </button>
+      ) : (
+        <button onClick={openPoll} className="open">
+          Open
+        </button>
+      )}
     </article>
   );
 }

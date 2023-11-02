@@ -32,6 +32,10 @@ export function defaultChoice(s: string = "A"): Choice {
   };
 }
 
+export function isPollOpen(poll: Poll): boolean {
+  return Math.random() >= 0.5;
+}
+
 export function pollExamples(): Poll[] {
   return [
     {

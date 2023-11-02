@@ -1,5 +1,22 @@
-article.poll {
+article.poll,
+article.tiny-poll {
   max-width: fit-content;
   display: block;
   border-radius: 6px;
+}
+
+article.tiny-poll {
+  background-color: orange;
+  margin: 1rem;
+  padding: 0.5rem;
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  button.open {
+    background-color: green !important;
+  }
+  button.close {
+    background-color: red !important;
+  }
 }
