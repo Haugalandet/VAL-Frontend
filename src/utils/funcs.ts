@@ -14,8 +14,8 @@ export function defaultTest(): Boolean {
 
 export function defaultPoll(): Poll {
   return {
-    id: -1,
     title: "NONE",
+    needLogin: false,
     description: "NONE\nNONE\nNONE",
     choices: ["A", "B", "C"],
   };

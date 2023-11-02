@@ -41,7 +41,7 @@ export function VotePage(props: { poll_id: string }) {
     TODO: Create error vote page
     (will be missing page atm)
   */
-  if ((poll.id === -1 || choices.length === 0) && !test) {
+  if (choices.length === 0 && !test) {
     return <Navigate to={`poll/${props.poll_id}`} />;
   }
 
@@ -49,6 +49,7 @@ export function VotePage(props: { poll_id: string }) {
     id: 69,
     title: "Testicle Poll",
     description: "Are testicles?",
+    needLogin: false,
     choices: [
       "Yes",
       "No",

@@ -7,7 +7,7 @@ import { ApiRoot } from "../utils/consts";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
-    <article id={props.poll.id.toString()} className="poll">
+    <article className="poll">
       <Title title={props.poll.title} />
       <p>{props.poll.description}</p>
       <select id="vote">
@@ -32,7 +32,7 @@ export function RenderPollVote(props: { poll: Poll }) {
   };
 
   return (
-    <article id={props.poll.id.toString()} className="poll">
+    <article className="poll">
       <Title title={props.poll.title} />
       <p>{props.poll.description}</p>
       <select value={selectedValue} onChange={handleSelectChange}>
@@ -80,6 +80,9 @@ export function CreatePoll(props: { poll: Poll }) {
       })
       .catch((err) => {
         console.log("Got error: ", err);
+      })
+      .finally(() => {
+        console.log(createdPoll);
       });
   };
 
@@ -108,6 +111,16 @@ export function CreatePoll(props: { poll: Poll }) {
         <MultipleChoiceEditor
           choices={props.poll.choices}
           onOptionsChange={updateChoice}
+        />
+      </label>
+      <label>
+        Need Login
+        <input
+          type="checkbox"
+          onChange={(e) => {
+            let p = createdPoll;
+            p.needLogin = !!e.target.value;
+          }}
         />
       </label>
       <button onClick={createPoll}>Save</button>

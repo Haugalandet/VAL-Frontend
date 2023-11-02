@@ -27,6 +27,7 @@ export function CreatePollPage(props: { poll_id: number }) {
     id: 69,
     title: "Testicle Poll",
     description: "Are testicles?",
+    needLogin: false,
     choices: [
       "Yes",
       "No",

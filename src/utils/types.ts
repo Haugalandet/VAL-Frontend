@@ -1,7 +1,7 @@
 export type Poll = {
-  id: number;
   title: string;
   description: string;
+  needLogin: boolean;
   choices: string[];
 };
 
