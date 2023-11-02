@@ -3,19 +3,55 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
+import { Dashboard } from "./pages/dashboard";
+import { LoginPage } from "./pages/loginpage";
+import { RegisterPage } from "./pages/registerpage";
+import { CreatePollPage } from "./pages/createpoll";
+import { VotePage } from "./pages/votepage";
+import { MissingPage } from "./pages/missingpage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/create",
+    element: <CreatePollPage poll_id={0} />,
+  },
+  {
+    path: "/poll/*",
+    element: <VotePage poll_id={""} />,
+  },
+  {
+    path: "/*",
+    element: <MissingPage />,
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </BrowserRouter>
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>
 );
 
