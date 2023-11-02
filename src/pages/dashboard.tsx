@@ -1,10 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { RenderPollTiny } from "../components/render_poll";
-import { pollExamples } from "../utils/funcs";
+import { isPollOpen, pollExamples } from "../utils/funcs";
+import { Poll } from "../utils/types";
 
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState(pollExamples());
@@ -30,11 +31,23 @@ export function Dashboard() {
         <Navbar />
       </header>
       <h1>Dashboard</h1>
-      <NavLink to={"create"}>New Poll</NavLink>
+      <Link to={"create"} replace={true}>
+        New Poll
+      </Link>
       <aside>
-        {allPolls.map((poll) => {
-          return <RenderPollTiny poll={poll} />;
-        })}
+        {allPolls
+          //.filter((p) => isPollOpen(p))
+          .map((poll) => {
+            return <RenderPollTiny poll={poll} />;
+          })}
+        {/* 
+        {allPolls
+          // @ts-ignore
+          .filter((p) => !isPollOpen(p))
+          .map((poll) => {
+            return <RenderPollTiny poll={poll} />;
+          })}
+        */}
       </aside>
     </>
   );
