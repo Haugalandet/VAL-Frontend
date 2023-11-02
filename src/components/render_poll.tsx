@@ -2,6 +2,8 @@ import { Poll } from "../utils/types";
 import { Title } from "./title";
 import "../styles/poll.scss";
 import { useState } from "react";
+import axios from "axios";
+import { ApiRoot } from "../utils/consts";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -70,8 +72,15 @@ export function CreatePoll(props: { poll: Poll }) {
     setCreatedPoll(p);
   };
 
-  const savePoll = () => {
-    console.log(createdPoll);
+  const createPoll = () => {
+    axios
+      .post(ApiRoot("polls"), createdPoll)
+      .then((r) => {
+        console.log("Created Poll");
+      })
+      .catch((err) => {
+        console.log("Got error: ", err);
+      });
   };
 
   return (
@@ -101,7 +110,7 @@ export function CreatePoll(props: { poll: Poll }) {
           onOptionsChange={updateChoice}
         />
       </label>
-      <button onClick={savePoll}>Save</button>
+      <button onClick={createPoll}>Save</button>
     </article>
   );
 }
