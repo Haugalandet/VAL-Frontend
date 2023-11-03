@@ -6,6 +6,7 @@ import { ApiRoot } from "../utils/consts";
 import { RenderPollTiny } from "../components/render_poll";
 import { isPollOpen, pollExamples } from "../utils/funcs";
 import { Poll } from "../utils/types";
+import { Footer } from "../components/footer";
 
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState(pollExamples());

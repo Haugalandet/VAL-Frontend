@@ -11,6 +11,7 @@ import { RegisterPage } from "./pages/registerpage";
 import { CreatePollPage } from "./pages/createpoll";
 import { VotePage } from "./pages/votepage";
 import { MissingPage } from "./pages/missingpage";
+import { ViewPoll } from "./pages/viewPoll";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
     element: <CreatePollPage poll_id={0} />,
   },
   {
-    path: "/poll/*",
+    path: "/polls/:id/view",
+    element: <ViewPoll />,
+  },
+  {
+    path: "/polls/*",
     element: <VotePage poll_id={""} />,
   },
   {

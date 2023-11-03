@@ -249,3 +249,19 @@ function MultipleChoiceEditor({
     </div>
   );
 }
+
+export function RenderPollView(props: { poll: Poll }) {
+  return (
+    <article className="poll">
+      <Title title={props.poll.title} />
+      <p>{props.poll.description}</p>
+      {props.poll.choices.map((c) => {
+        return (
+          <p>
+            {c.title}: {c.count === undefined ? 0 : c.count}
+          </p>
+        );
+      })}
+    </article>
+  );
+}

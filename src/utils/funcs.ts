@@ -39,7 +39,7 @@ export function isPollOpen(poll: Poll): boolean {
 export function pollExamples(): Poll[] {
   return [
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "What is a Monad?",
       needLogin: false,
       description: "A monad is a monoid in the category of endofunctors",
@@ -52,7 +52,7 @@ export function pollExamples(): Poll[] {
       ],
     },
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "How do I leave vim?",
       needLogin: false,
       description: "I am stuck",
@@ -66,7 +66,7 @@ export function pollExamples(): Poll[] {
       ],
     },
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "Favorite Programming Paradigm",
       needLogin: false,
       description: "What's your favorite programming paradigm?",
@@ -81,7 +81,7 @@ export function pollExamples(): Poll[] {
       ],
     },
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "Best Text Editor",
       needLogin: false,
       description: "What's the best text editor for coding?",
@@ -96,7 +96,7 @@ export function pollExamples(): Poll[] {
       ],
     },
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "Favorite Programming Language",
       needLogin: false,
       description: "Who answers Java/JavaScript?",
@@ -110,7 +110,7 @@ export function pollExamples(): Poll[] {
       ],
     },
     {
-      id: undefined,
+      id: Math.round(Math.random() * 100),
       title: "Favorite Data Structure",
       needLogin: false,
       description: "What's your favorite data structure?",
