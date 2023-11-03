@@ -4,37 +4,38 @@ import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
-import { Navigate } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { RenderPoll } from "../components/render_poll";
 import "../styles/home.scss";
 import { RenderPollVote } from "../components/render_poll";
 import { defaultChoice, defaultPoll } from "../utils/funcs";
 
-export function VotePage(props: { poll_id: string }) {
+export function VotePage() {
+  const { id } = useParams<{ id: string }>();
   const [poll, setPoll] = useState(defaultPoll());
   const [choices, setChoice] = useState([]);
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`polls/${props.poll_id}/instances`))
+      .get(ApiRoot(`polls/${id}/instances`))
       .then((res) => {
         setPoll(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.poll_id]);
+  }, [id]);
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`polls/${props.poll_id}/choices`))
+      .get(ApiRoot(`polls/${poll.id}/choices`))
       .then((res) => {
         setChoice(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.poll_id]);
+  }, [poll]);
 
   /*
     if poll.id is the default id, or if no choices were retrieved we redirect to an error vote page
@@ -42,7 +43,7 @@ export function VotePage(props: { poll_id: string }) {
     (will be missing page atm)
   */
   if (choices.length === 0 && !test) {
-    return <Navigate to={`poll/${props.poll_id}`} />;
+    return <Navigate to={`poll/${poll.id}`} />;
   }
 
   let testPoll = {

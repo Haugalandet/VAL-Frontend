@@ -4,21 +4,24 @@ import { Navbar } from "../components/navbar";
 import { CreatePoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
-import { defaultChoice } from "../utils/funcs";
+import { defaultChoice, defaultPoll } from "../utils/funcs";
+import { useParams } from "react-router";
 
-export function CreatePollPage(props: { poll_id: number }) {
-  const [poll, setPoll] = useState(null);
+export function CreatePollPage() {
+  const [poll, setPoll] = useState(defaultPoll());
+
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))
+      .get(ApiRoot(`poll/${id}/vote`))
       .then((res) => {
         setPoll(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.poll_id]);
+  }, [id]);
 
   if (!poll) {
     // return <Navigate to={`poll/${props.poll_id}/vote`} />;
