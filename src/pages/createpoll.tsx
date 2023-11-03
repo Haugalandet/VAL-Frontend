@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { CreatePoll, RenderPoll } from "../components/render_poll";
+import { CreatePoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
 import { defaultChoice } from "../utils/funcs";
