@@ -31,9 +31,9 @@ export function Dashboard() {
         <Navbar />
       </header>
       <h1>Dashboard</h1>
-      <Link to={"create"} replace={true}>
-        New Poll
-      </Link>
+      <NavLink to={"create"} replace={true}>
+        <button>New Poll</button>
+      </NavLink>
       <aside>
         {allPolls
           //.filter((p) => isPollOpen(p))

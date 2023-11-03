@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: "/create",
+    path: "dashboard/create",
     element: <CreatePollPage poll_id={0} />,
   },
   {
