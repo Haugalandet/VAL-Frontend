@@ -6,6 +6,7 @@ import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useCookies } from "react-cookie";
 import { defaultChoice, isPollOpen } from "../utils/funcs";
+import { Navigate } from "react-router";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -44,6 +45,8 @@ export function RenderPollTiny(props: { poll: Poll }) {
       });
   };
 
+  const isOpen = isPollOpen(props.poll);
+
   return (
     <article className="tiny-poll">
       <h4>{props.poll.title}</h4>
@@ -52,10 +55,13 @@ export function RenderPollTiny(props: { poll: Poll }) {
       {props.poll.choices.map((c) => {
         return <p>{c.title}</p>;
       })}
-      {isPollOpen(props.poll) ? (
-        <button onClick={closePoll} className="close">
-          Close
-        </button>
+      {isOpen ? (
+        <>
+          <button onClick={closePoll} className="close">
+            Close
+          </button>
+          <button className="edit">Edit</button>
+        </>
       ) : (
         <button onClick={openPoll} className="open">
           Open
