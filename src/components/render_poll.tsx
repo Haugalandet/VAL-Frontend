@@ -6,6 +6,7 @@ import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useCookies } from "react-cookie";
 import { defaultChoice, isPollOpen } from "../utils/funcs";
+import { Navigate, useNavigate } from "react-router";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -22,6 +23,8 @@ export function RenderPoll(props: { poll: Poll }) {
 }
 
 export function RenderPollTiny(props: { poll: Poll }) {
+  const navigate = useNavigate();
+
   const openPoll = () => {
     axios
       .post(ApiRoot(`polls/${props.poll.id}/start`))
@@ -44,6 +47,10 @@ export function RenderPollTiny(props: { poll: Poll }) {
       });
   };
 
+  const viewPoll = () => {
+    navigate(`/polls/${props.poll.id}/view`);
+  };
+
   return (
     <article className="tiny-poll">
       <h4>{props.poll.title}</h4>
@@ -53,9 +60,14 @@ export function RenderPollTiny(props: { poll: Poll }) {
         return <p>{c.title}</p>;
       })}
       {isPollOpen(props.poll) ? (
-        <button onClick={closePoll} className="close">
-          Close
-        </button>
+        <>
+          <button onClick={closePoll} className="close">
+            Close
+          </button>
+          <button onClick={viewPoll} className="view">
+            View
+          </button>
+        </>
       ) : (
         <button onClick={openPoll} className="open">
           Open

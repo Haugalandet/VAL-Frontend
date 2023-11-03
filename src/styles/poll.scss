@@ -10,13 +10,17 @@ article.tiny-poll {
   margin: 1rem;
   padding: 0.5rem;
   * {
-    padding: 0;
-    margin: 0;
+    padding: 0.25rem;
+    margin: 0.25rem;
   }
+
   button.open {
-    background-color: green !important;
+    background-color: green;
   }
   button.close {
-    background-color: red !important;
+    background-color: red;
+  }
+  button.view {
+    background-color: #bfdf8e;
   }
 }
