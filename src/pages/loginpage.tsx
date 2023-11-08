@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
@@ -11,7 +11,8 @@ import { useCookies } from "react-cookie";
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [cookie, setCookie] = useCookies(["Authorization"]);
+  const [_, setCookie] = useCookies(["Authorization"]);
+  const navigate = useNavigate();
 
   // @ts-ignore
   const handleUsernameChange = (event) => {
@@ -70,7 +71,7 @@ export function LoginPage() {
       })
       .then((res) => {
         setCookie("Authorization", res.data);
-        <Navigate to={"/dashboard"} />;
+        navigate("/dashboard");
       })
       .catch((err) => console.log(err));
   }

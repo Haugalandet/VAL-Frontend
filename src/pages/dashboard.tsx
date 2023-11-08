@@ -7,6 +7,7 @@ import { RenderPollTiny } from "../components/render_poll";
 import { isPollOpen, pollExamples } from "../utils/funcs";
 import { Poll } from "../utils/types";
 import "../styles/dashboard.scss";
+import { Footer } from "../components/footer";
 
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState(pollExamples());

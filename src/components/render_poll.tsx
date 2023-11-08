@@ -6,7 +6,7 @@ import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useCookies } from "react-cookie";
 import { defaultChoice, isPollOpen } from "../utils/funcs";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export function RenderPoll(props: { poll: Poll }) {
   return (
@@ -23,6 +23,8 @@ export function RenderPoll(props: { poll: Poll }) {
 }
 
 export function RenderPollTiny(props: { poll: Poll }) {
+  const navigate = useNavigate();
+
   const openPoll = () => {
     axios
       .post(ApiRoot(`polls/${props.poll.id}/start`))
@@ -45,6 +47,10 @@ export function RenderPollTiny(props: { poll: Poll }) {
       });
   };
 
+  const viewPoll = () => {
+    navigate(`/polls/${props.poll.id}/view`);
+  };
+
   const isOpen = isPollOpen(props.poll);
 
   return (
@@ -60,12 +66,17 @@ export function RenderPollTiny(props: { poll: Poll }) {
           <button onClick={closePoll} className="close">
             Close
           </button>
-          <button className="edit">Edit</button>
+          <button onClick={viewPoll} className="view">
+            View
+          </button>
         </>
       ) : (
-        <button onClick={openPoll} className="open">
-          Open
-        </button>
+        <>
+          <button onClick={openPoll} className="open">
+            Open
+          </button>
+          <button className="edit">Edit</button>
+        </>
       )}
     </article>
   );
@@ -236,5 +247,21 @@ function MultipleChoiceEditor({
       })}
       <button onClick={addOption}>Add</button>
     </div>
+  );
+}
+
+export function RenderPollView(props: { poll: Poll }) {
+  return (
+    <article className="poll">
+      <Title title={props.poll.title} />
+      <p>{props.poll.description}</p>
+      {props.poll.choices.map((c) => {
+        return (
+          <p>
+            {c.title}: {c.count === undefined ? 0 : c.count}
+          </p>
+        );
+      })}
+    </article>
   );
 }

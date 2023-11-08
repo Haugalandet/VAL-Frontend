@@ -10,7 +10,7 @@ article.tiny-poll {
   margin: 1rem;
   padding: 0.5rem;
   * {
-    padding: 0;
+    padding: 0.25rem;
     margin: 0.25rem;
   }
 
@@ -30,7 +30,10 @@ article.tiny-poll {
   button.close {
     background-color: red;
   }
+  button.view {
+    background-color: #bfdf8e;
+  }
   button.edit {
-    background-color: green;
+    background-color: #bfdf8e;
   }
 }

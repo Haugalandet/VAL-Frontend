@@ -18,4 +18,5 @@ export type User = {
 export type Choice = {
   title: string;
   description: string;
+  count?: number;
 };
