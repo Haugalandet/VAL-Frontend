@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     element: <ViewPoll />,
   },
   {
-    path: "/polls/*",
+    path: "/polls/:id",
     element: <VotePage />,
   },
   {

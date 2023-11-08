@@ -19,7 +19,7 @@ export function LandingPage() {
   };
 
   const findPoll = () => {
-    navigate(`poll/${pollId}`);
+    navigate(`polls/${pollId}`);
   };
 
   return (

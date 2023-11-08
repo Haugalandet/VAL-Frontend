@@ -13,7 +13,6 @@ import { defaultChoice, defaultPoll } from "../utils/funcs";
 export function VotePage() {
   const { id } = useParams<{ id: string }>();
   const [poll, setPoll] = useState(defaultPoll());
-  const [choices, setChoice] = useState([]);
 
   useEffect(() => {
     axios
@@ -30,7 +29,9 @@ export function VotePage() {
     axios
       .get(ApiRoot(`polls/${poll.id}/choices`))
       .then((res) => {
-        setChoice(res.data);
+        let p = poll;
+        p.choices = res.data;
+        setPoll(p);
       })
       .catch((err) => {
         console.log(err);
@@ -38,12 +39,10 @@ export function VotePage() {
   }, [poll]);
 
   /*
-    if poll.id is the default id, or if no choices were retrieved we redirect to an error vote page
     TODO: Create error vote page
-    (will be missing page atm)
   */
-  if (choices.length === 0 && !test) {
-    return <Navigate to={`poll/${poll.id}`} />;
+  if (poll.choices.length === 0) {
+    //return <Navigate to={`poll/${poll.id}`} />;
   }
 
   let testPoll = {
@@ -58,8 +57,6 @@ export function VotePage() {
       defaultChoice("Who are you, and how did you get into my house???"),
     ],
   };
-
-  poll.choices = choices;
 
   return (
     <>
