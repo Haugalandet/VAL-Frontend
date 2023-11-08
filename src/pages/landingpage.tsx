@@ -13,9 +13,9 @@ export function LandingPage() {
   const navigate = useNavigate();
 
   // @ts-ignore
-  const updatePoll = (event) => {
+  const updatePoll = (e) => {
     // @ts-ignore
-    setPollId(event.target.value);
+    setPollId(e.target.value);
   };
 
   const findPoll = () => {
@@ -33,8 +33,8 @@ export function LandingPage() {
             Enter poll id to vote: <br />
             <input
               type="text"
-              inputMode="numeric"
-              pattern="[0-9]+"
+              name="name"
+              pattern="[0-9]"
               onChange={updatePoll}
             />
             <button onClick={findPoll}>Find Poll</button>

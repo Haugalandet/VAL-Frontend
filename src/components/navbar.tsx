@@ -7,11 +7,10 @@ import logo from "../assets/logo.png";
 export function Navbar() {
   return (
     <nav>
-      
       <NavLink to="/" className="logo-link">
-        <img src={logo} alt="VAL Logo"/>
+        <img src={logo} alt="VAL Logo" />
       </NavLink>
-      <div>Poloins AS</div>
+      <div className="title">Poloins AS</div>
       <div className="buttonsdiv">
         <NavLink to="/login">
           <button>Logg inn</button>
