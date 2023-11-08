@@ -12,11 +12,11 @@ export function Navbar() {
       </NavLink>
       <div className="title">Poloins AS</div>
       <div className="buttonsdiv">
-        <NavLink to="/login">
-          <button>Logg inn</button>
-        </NavLink>
         <NavLink to="/register">
           <button>Registrer bruker</button>
+        </NavLink>
+        <NavLink to="/login">
+          <button>Logg inn</button>
         </NavLink>
       </div>
     </nav>
