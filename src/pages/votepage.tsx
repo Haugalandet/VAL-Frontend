@@ -41,14 +41,14 @@ export function VotePage(props: { poll_id: string }) {
     TODO: Create error vote page
     (will be missing page atm)
   */
-  if (choices.length === 0 && !test) {
-    return <Navigate to={`poll/${props.poll_id}`} />;
+  if (choices.length === 0) {
+    //return <Navigate to={`poll/${props.poll_id}`} />;
   }
 
   let testPoll = {
     id: 69,
-    title: "Testicle Poll",
-    description: "Are testicles?",
+    title: "Test Poll",
+    description: "Are is this a test?",
     needLogin: false,
     choices: [
       defaultChoice("Yes"),

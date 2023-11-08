@@ -26,8 +26,8 @@ export function CreatePollPage(props: { poll_id: number }) {
 
   let testPoll = {
     id: 69,
-    title: "Testicle Poll",
-    description: "Are testicles?",
+    title: "Test Poll",
+    description: "Are is this a test?",
     needLogin: false,
     choices: [
       defaultChoice("Yes"),
@@ -43,7 +43,7 @@ export function CreatePollPage(props: { poll_id: number }) {
         <Navbar />
       </header>
       <main>
-        <h1>Edit poll</h1>
+        <h1>Create poll</h1>
         <CreatePoll poll={testPoll} />
       </main>
       <Footer />
