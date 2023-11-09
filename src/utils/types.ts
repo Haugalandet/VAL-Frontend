@@ -6,6 +6,8 @@ export type Poll = {
   startTime?: Date;
   endTime?: Date;
   choices: Choice[];
+  status: String;
+  roomcode: String;
 };
 
 export type User = {

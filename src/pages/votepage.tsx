@@ -4,11 +4,10 @@ import { Navbar } from "../components/navbar";
 import { Title } from "../components/title";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
-import { Navigate, useParams } from "react-router";
-import { RenderPoll } from "../components/render_poll";
+import { useParams } from "react-router";
 import "../styles/home.scss";
 import { RenderPollVote } from "../components/render_poll";
-import { defaultChoice, defaultPoll } from "../utils/funcs";
+import { defaultPoll } from "../utils/funcs";
 import { useCookies } from "react-cookie";
 
 export function VotePage() {
@@ -41,19 +40,6 @@ export function VotePage() {
     //return <Navigate to={`poll/${poll.id}`} />;
   }
 
-  let testPoll = {
-    id: 69,
-    title: "Test Poll",
-    description: "Are is this a test?",
-    needLogin: false,
-    choices: [
-      defaultChoice("Yes"),
-      defaultChoice("No"),
-      defaultChoice("Maybe"),
-      defaultChoice("Who are you, and how did you get into my house???"),
-    ],
-  };
-
   return (
     <>
       <header>
@@ -61,7 +47,7 @@ export function VotePage() {
       </header>
       <main className="input">
         <Title title="Poling Poloins" />
-        <RenderPollVote poll={poll} />
+        <RenderPollVote poll={defaultPoll()} />
       </main>
       <Footer />
     </>
