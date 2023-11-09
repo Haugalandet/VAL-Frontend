@@ -7,6 +7,7 @@ import { RenderPollTiny } from "../components/render_poll";
 import "../styles/dashboard.scss";
 import { Footer } from "../components/footer";
 import { useCookies } from "react-cookie";
+import { FindPoll } from "../components/find_poll";
 
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState([]);
@@ -39,6 +40,9 @@ export function Dashboard() {
         <NavLink to={"create"} replace={true}>
           <button>New Poll</button>
         </NavLink>
+        <article>
+          <FindPoll />
+        </article>
         <aside>
           {allPolls.map((poll) => {
             console.log(poll);

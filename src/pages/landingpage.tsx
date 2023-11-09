@@ -2,22 +2,9 @@ import { useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import "../styles/landingpage.scss";
-import { useNavigate } from "react-router";
+import { FindPoll } from "../components/find_poll";
 
 export function LandingPage() {
-  const [pollId, setPollId] = useState(0);
-  const navigate = useNavigate();
-
-  // @ts-ignore
-  const updatePoll = (e) => {
-    // @ts-ignore
-    setPollId(e.target.value);
-  };
-
-  const findPoll = () => {
-    navigate(`polls/${pollId}`);
-  };
-
   return (
     <>
       <header>
@@ -25,16 +12,7 @@ export function LandingPage() {
       </header>
       <main id="landingpagemain">
         <article>
-          <section id="landingpagesection">
-            Enter poll id to vote: <br />
-            <input
-              type="text"
-              name="name"
-              pattern="[0-9]"
-              onChange={updatePoll}
-            />
-            <button onClick={findPoll}>Find Poll</button>
-          </section>
+          <FindPoll />
         </article>
       </main>
 
