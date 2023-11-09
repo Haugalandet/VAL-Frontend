@@ -27,19 +27,6 @@ export function CreatePollPage() {
     // return <Navigate to={`poll/${props.poll_id}/vote`} />;
   }
 
-  let testPoll = {
-    id: 69,
-    title: "Test Poll",
-    description: "Are is this a test?",
-    needLogin: false,
-    choices: [
-      defaultChoice("Yes"),
-      defaultChoice("No"),
-      defaultChoice("Maybe"),
-      defaultChoice("Who are you, and how did you get into my house???"),
-    ],
-  };
-
   return (
     <>
       <header>
@@ -47,7 +34,7 @@ export function CreatePollPage() {
       </header>
       <main>
         <h1>Create poll</h1>
-        <CreatePoll poll={testPoll} />
+        <CreatePoll poll={defaultPoll()} />
       </main>
       <Footer />
     </>

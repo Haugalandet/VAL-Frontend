@@ -22,6 +22,8 @@ export function defaultPoll(): Poll {
     startTime: undefined,
     endTime: undefined,
     choices: [defaultChoice(), defaultChoice("B"), defaultChoice("C")],
+    status: "ACTIVE",
+    roomcode: "0000",
   };
 }
 
@@ -33,7 +35,7 @@ export function defaultChoice(s: string = "A"): Choice {
 }
 
 export function isPollOpen(poll: Poll): boolean {
-  return Math.random() >= 0.5;
+  return poll.status === "ACTIVE";
 }
 
 export function pollExamples(): Poll[] {
@@ -50,6 +52,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Yes."),
         defaultChoice("Nobody knows."),
       ],
+      status: "ACTIVE",
+      roomcode: "123",
     },
     {
       id: Math.round(Math.random() * 100),
@@ -64,6 +68,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Task Manager"),
         defaultChoice("Turn off your computer"),
       ],
+      status: "ACTIVE",
+      roomcode: "1234",
     },
     {
       id: Math.round(Math.random() * 100),
@@ -79,6 +85,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Procedural"),
         defaultChoice("Reactive"),
       ],
+      status: "ACTIVE",
+      roomcode: "12345",
     },
     {
       id: Math.round(Math.random() * 100),
@@ -94,6 +102,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Vim"),
         defaultChoice("Sublime Text"),
       ],
+      status: "ACTIVE",
+      roomcode: "123456",
     },
     {
       id: Math.round(Math.random() * 100),
@@ -108,6 +118,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Rust"),
         defaultChoice("Haskell"),
       ],
+      status: "ACTIVE",
+      roomcode: "1234567",
     },
     {
       id: Math.round(Math.random() * 100),
@@ -123,6 +135,8 @@ export function pollExamples(): Poll[] {
         defaultChoice("Binary Tree"),
         defaultChoice("Hash Table"),
       ],
+      status: "ACTIVE",
+      roomcode: "12345678",
     },
   ];
 }

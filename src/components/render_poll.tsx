@@ -164,7 +164,7 @@ export function CreatePoll(props: { poll: Poll }) {
         <input
           type="text"
           name="title"
-          value={props.poll.title}
+          placeholder={props.poll.title}
           onChange={updateTitle}
         />
       </label>
@@ -173,7 +173,7 @@ export function CreatePoll(props: { poll: Poll }) {
         <input
           type="text"
           name="desc"
-          value={props.poll.description}
+          placeholder={props.poll.description}
           onChange={updateDesc}
         />
       </label>
@@ -238,7 +238,7 @@ function MultipleChoiceEditor({
           <div key={index}>
             <input
               type="text"
-              value={option.title}
+              placeholder={option.title}
               onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button onClick={() => removeOption(index)}>Remove</button>

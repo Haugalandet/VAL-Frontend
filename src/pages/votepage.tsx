@@ -65,7 +65,7 @@ export function VotePage() {
       </header>
       <main className="input">
         <Title title="Poling Poloins" />
-        <RenderPollVote poll={testPoll} />
+        <RenderPollVote poll={defaultPoll()} />
       </main>
       <Footer />
     </>
