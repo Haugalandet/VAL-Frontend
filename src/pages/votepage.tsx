@@ -9,34 +9,30 @@ import { RenderPoll } from "../components/render_poll";
 import "../styles/home.scss";
 import { RenderPollVote } from "../components/render_poll";
 import { defaultChoice, defaultPoll } from "../utils/funcs";
+import { useCookies } from "react-cookie";
 
 export function VotePage() {
   const { id } = useParams<{ id: string }>();
   const [poll, setPoll] = useState(defaultPoll());
+  const [cookie, setCookie] = useCookies(["Authorization"]);
 
   useEffect(() => {
+    let config = {
+      header: {
+        //@ts-ignore
+        Authorization: cookie["Authorization"],
+      },
+    };
     axios
-      .get(ApiRoot(`polls/${id}/instances`))
+      // @ts-ignore
+      .get(ApiRoot(`polls/${id}`), config)
       .then((res) => {
         setPoll(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
-
-  useEffect(() => {
-    axios
-      .get(ApiRoot(`polls/${poll.id}/choices`))
-      .then((res) => {
-        let p = poll;
-        p.choices = res.data;
-        setPoll(p);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [poll]);
+  }, [cookie, id]);
 
   /*
     TODO: Create error vote page
@@ -65,7 +61,7 @@ export function VotePage() {
       </header>
       <main className="input">
         <Title title="Poling Poloins" />
-        <RenderPollVote poll={testPoll} />
+        <RenderPollVote poll={poll} />
       </main>
       <Footer />
     </>

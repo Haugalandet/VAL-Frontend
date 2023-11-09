@@ -8,13 +8,17 @@ import { isPollOpen, pollExamples } from "../utils/funcs";
 import { Poll } from "../utils/types";
 import "../styles/dashboard.scss";
 import { Footer } from "../components/footer";
+import { useCookies } from "react-cookie";
 
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState(pollExamples());
+  const [cookie] = useCookies(["Authorization"]);
 
   useEffect(() => {
     let config = {
-      headers: {},
+      headers: {
+        Authorization: cookie["Authorization"],
+      },
     };
     axios
       .get(ApiRoot("polls"), config)
@@ -25,7 +29,7 @@ export function Dashboard() {
       .catch((res) => {
         console.log(res);
       });
-  });
+  }, []);
 
   return (
     <>
