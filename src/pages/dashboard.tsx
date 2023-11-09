@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,8 +12,13 @@ import { FindPoll } from "../components/find_poll";
 export function Dashboard() {
   const [allPolls, setAllPolls] = useState([]);
   const [cookie] = useCookies(["Authorization"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (cookie["Authorization"] === undefined) {
+      navigate("/login");
+    }
+
     let config = {
       headers: {
         Authorization: cookie["Authorization"],
@@ -22,13 +27,12 @@ export function Dashboard() {
     axios
       .get(ApiRoot("polls"), config)
       .then((res) => {
-        console.log(res);
         setAllPolls(res.data);
       })
       .catch((res) => {
-        console.log(res);
+        console.error(res);
       });
-  }, []);
+  }, [navigate, cookie]);
 
   return (
     <>
