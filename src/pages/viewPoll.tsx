@@ -1,11 +1,10 @@
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
-import { RenderPollTiny, RenderPollView } from "../components/render_poll";
-import { defaultPoll, isPollOpen, pollExamples } from "../utils/funcs";
-import { Poll } from "../utils/types";
+import { RenderPollView } from "../components/render_poll";
+import { defaultPoll } from "../utils/funcs";
 import { Footer } from "../components/footer";
 
 export function ViewPoll() {

@@ -1,5 +1,5 @@
 export type Poll = {
-  id?: number;
+  pollId?: number;
   title: string;
   description: string;
   needLogin: boolean;
@@ -8,16 +8,18 @@ export type Poll = {
   choices: Choice[];
   status: String;
   roomcode: String;
+  hasUserVoted?: boolean;
 };
 
 export type User = {
-  id?: number;
+  userId?: number;
   username: string;
   password: string;
   tokens: string;
 };
 
 export type Choice = {
+  choiceId?: number;
   title: string;
   description: string;
   count?: number;

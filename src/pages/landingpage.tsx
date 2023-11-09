@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Publicpoll } from "../components/publicpoll";
-import { Title } from "../components/title";
 import "../styles/landingpage.scss";
-import axios from "axios";
-import { ApiRoot } from "../utils/consts";
 import { useNavigate } from "react-router";
 
 export function LandingPage() {

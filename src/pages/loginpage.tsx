@@ -1,7 +1,6 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Title } from "../components/title";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
 import "../styles/form.scss";
@@ -32,7 +31,7 @@ export function LoginPage() {
       </header>
 
       <main className="input">
-        <Title title="Poling Polions" />
+        <h2>Poling Polions</h2>
         <h3>Login</h3>
         <article>
           <section>

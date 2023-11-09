@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Title } from "../components/title";
 import axios from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useParams } from "react-router";
@@ -13,7 +12,7 @@ import { useCookies } from "react-cookie";
 export function VotePage() {
   const { id } = useParams<{ id: string }>();
   const [poll, setPoll] = useState(defaultPoll());
-  const [cookie, setCookie] = useCookies(["Authorization"]);
+  const [cookie] = useCookies(["Authorization"]);
 
   useEffect(() => {
     let config = {
@@ -46,8 +45,8 @@ export function VotePage() {
         <Navbar />
       </header>
       <main className="input">
-        <Title title="Poling Poloins" />
-        <RenderPollVote poll={defaultPoll()} />
+        <h2>Poling Poloins</h2>
+        <RenderPollVote poll={poll} />
       </main>
       <Footer />
     </>

@@ -4,7 +4,7 @@ import { Navbar } from "../components/navbar";
 import { CreatePoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
 import axios from "axios";
-import { defaultChoice, defaultPoll } from "../utils/funcs";
+import { defaultPoll } from "../utils/funcs";
 import { useParams } from "react-router";
 
 export function CreatePollPage() {

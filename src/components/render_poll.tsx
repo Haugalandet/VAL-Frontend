@@ -1,8 +1,7 @@
 import { Choice, Poll } from "../utils/types";
-import { Title } from "./title";
 import "../styles/poll.scss";
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useCookies } from "react-cookie";
 import { defaultChoice, isPollOpen } from "../utils/funcs";
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router";
 export function RenderPoll(props: { poll: Poll }) {
   return (
     <article className="poll">
-      <Title title={props.poll.title} />
+      <h2>{props.poll.title}</h2>
       <p>{props.poll.description}</p>
       <select id="vote">
         {props.poll.choices.map((c) => {
@@ -24,10 +23,17 @@ export function RenderPoll(props: { poll: Poll }) {
 
 export function RenderPollTiny(props: { poll: Poll }) {
   const navigate = useNavigate();
+  const [cookie] = useCookies(["Authorization"]);
+
+  const config: AxiosRequestConfig<{}> = {
+    headers: {
+      Authorization: cookie["Authorization"],
+    },
+  };
 
   const openPoll = () => {
     axios
-      .post(ApiRoot(`polls/${props.poll.id}/start`))
+      .post(ApiRoot(`polls/${props.poll.pollId}/start`), {}, config)
       .then((res) => {
         console.log(res);
       })
@@ -38,7 +44,7 @@ export function RenderPollTiny(props: { poll: Poll }) {
 
   const closePoll = () => {
     axios
-      .post(ApiRoot(`polls/${props.poll.id}/end`))
+      .post(ApiRoot(`polls/${props.poll.pollId}/end`), {}, config)
       .then((res) => {
         console.log(res);
       })
@@ -48,7 +54,7 @@ export function RenderPollTiny(props: { poll: Poll }) {
   };
 
   const viewPoll = () => {
-    navigate(`/polls/${props.poll.id}/view`);
+    navigate(`/polls/${props.poll.pollId}/view`);
   };
 
   const isOpen = isPollOpen(props.poll);
@@ -96,7 +102,7 @@ export function RenderPollVote(props: { poll: Poll }) {
 
   return (
     <article className="poll">
-      <Title title={props.poll.title} />
+      <h2>{props.poll.title}</h2>
       <p>{props.poll.description}</p>
       <select value={selectedValue} onChange={handleSelectChange}>
         {props.poll.choices.map((c) => {
@@ -253,7 +259,7 @@ function MultipleChoiceEditor({
 export function RenderPollView(props: { poll: Poll }) {
   return (
     <article className="poll">
-      <Title title={props.poll.title} />
+      <h2>{props.poll.title}</h2>
       <p>{props.poll.description}</p>
       {props.poll.choices.map((c) => {
         return (

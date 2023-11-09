@@ -2,7 +2,7 @@ import { Choice, Poll, User } from "./types";
 
 export function defaultUser(): User {
   return {
-    id: undefined,
+    userId: undefined,
     username: "NONE",
     password: "NONE123",
     tokens: "",
@@ -15,7 +15,7 @@ export function defaultTest(): Boolean {
 
 export function defaultPoll(): Poll {
   return {
-    id: undefined,
+    pollId: undefined,
     title: "NONE",
     needLogin: false,
     description: "NONE\nNONE\nNONE",
@@ -41,7 +41,7 @@ export function isPollOpen(poll: Poll): boolean {
 export function pollExamples(): Poll[] {
   return [
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "What is a Monad?",
       needLogin: false,
       description: "A monad is a monoid in the category of endofunctors",
@@ -56,7 +56,7 @@ export function pollExamples(): Poll[] {
       roomcode: "123",
     },
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "How do I leave vim?",
       needLogin: false,
       description: "I am stuck",
@@ -72,7 +72,7 @@ export function pollExamples(): Poll[] {
       roomcode: "1234",
     },
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "Favorite Programming Paradigm",
       needLogin: false,
       description: "What's your favorite programming paradigm?",
@@ -89,7 +89,7 @@ export function pollExamples(): Poll[] {
       roomcode: "12345",
     },
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "Best Text Editor",
       needLogin: false,
       description: "What's the best text editor for coding?",
@@ -106,7 +106,7 @@ export function pollExamples(): Poll[] {
       roomcode: "123456",
     },
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "Favorite Programming Language",
       needLogin: false,
       description: "Who answers Java/JavaScript?",
@@ -122,7 +122,7 @@ export function pollExamples(): Poll[] {
       roomcode: "1234567",
     },
     {
-      id: Math.round(Math.random() * 100),
+      pollId: Math.round(Math.random() * 100),
       title: "Favorite Data Structure",
       needLogin: false,
       description: "What's your favorite data structure?",
