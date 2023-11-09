@@ -120,7 +120,8 @@ export function RenderPollVote(props: { poll: Poll }) {
 
 export function CreatePoll(props: { poll: Poll }) {
   const [createdPoll, setCreatedPoll] = useState(props.poll);
-  const [cookie] = useCookies([]);
+  const [cookie] = useCookies(["Authorization"]);
+  const navigate = useNavigate();
 
   // @ts-ignore
   const updateTitle = (event) => {
@@ -143,9 +144,8 @@ export function CreatePoll(props: { poll: Poll }) {
   };
 
   const createPoll = () => {
-    let config = {
+    const config: AxiosRequestConfig = {
       headers: {
-        //@ts-ignore
         Authorization: cookie["Authorization"],
       },
     };
@@ -153,13 +153,11 @@ export function CreatePoll(props: { poll: Poll }) {
     axios
       .post(ApiRoot("polls"), createdPoll, config)
       .then((r) => {
-        console.log("Created Poll");
+        //@ts-ignore
+        navigate(`/polls/${r.data.pollId}/view`);
       })
       .catch((err) => {
-        console.log("Got error: ", err);
-      })
-      .finally(() => {
-        console.log(createdPoll);
+        console.error(err);
       });
   };
 
@@ -197,9 +195,28 @@ export function CreatePoll(props: { poll: Poll }) {
           onChange={(e) => {
             let p = createdPoll;
             p.needLogin = !!e.target.value;
+            setCreatedPoll(p);
           }}
         />
       </label>
+      <label>Start Date</label>
+      <input
+        type="date"
+        onChange={(e) => {
+          let p = createdPoll;
+          p.startTime = new Date(Date.parse(e.target.value));
+          setCreatedPoll(p);
+        }}
+      />
+      <label>End Date</label>
+      <input
+        type="date"
+        onChange={(e) => {
+          let p = createdPoll;
+          p.endTime = new Date(Date.parse(e.target.value));
+          setCreatedPoll(p);
+        }}
+      />
       <button onClick={createPoll}>Save</button>
     </article>
   );

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ApiRoot } from "../utils/consts";
 import { RenderPollTiny } from "../components/render_poll";
 import "../styles/dashboard.scss";
@@ -19,7 +19,7 @@ export function Dashboard() {
       navigate("/login");
     }
 
-    let config = {
+    const config: AxiosRequestConfig = {
       headers: {
         Authorization: cookie["Authorization"],
       },

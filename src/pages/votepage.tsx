@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useParams } from "react-router";
 import "../styles/home.scss";
@@ -15,9 +15,8 @@ export function VotePage() {
   const [cookie] = useCookies(["Authorization"]);
 
   useEffect(() => {
-    let config = {
-      header: {
-        //@ts-ignore
+    const config: AxiosRequestConfig = {
+      headers: {
         Authorization: cookie["Authorization"],
       },
     };
