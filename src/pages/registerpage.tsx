@@ -19,6 +19,7 @@ export function RegisterPage() {
   const register = (_) => {
     if (password1 !== password2) {
       alert("Password are not equal");
+      return;
     }
 
     axios
