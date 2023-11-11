@@ -1,13 +1,4 @@
-import { Choice, Poll, User } from "./types";
-
-export function defaultUser(): User {
-  return {
-    userId: undefined,
-    username: "NONE",
-    password: "NONE123",
-    tokens: "",
-  };
-}
+import { Choice, Poll } from "./types";
 
 export function defaultTest(): Boolean {
   return true;
@@ -23,7 +14,6 @@ export function defaultPoll(): Poll {
     endTime: undefined,
     choices: [defaultChoice(), defaultChoice("B"), defaultChoice("C")],
     status: "ACTIVE",
-    roomcode: "0000",
   };
 }
 
@@ -53,7 +43,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Nobody knows."),
       ],
       status: "ACTIVE",
-      roomcode: "123",
     },
     {
       pollId: Math.round(Math.random() * 100),
@@ -69,7 +58,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Turn off your computer"),
       ],
       status: "ACTIVE",
-      roomcode: "1234",
     },
     {
       pollId: Math.round(Math.random() * 100),
@@ -86,7 +74,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Reactive"),
       ],
       status: "ACTIVE",
-      roomcode: "12345",
     },
     {
       pollId: Math.round(Math.random() * 100),
@@ -103,7 +90,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Sublime Text"),
       ],
       status: "ACTIVE",
-      roomcode: "123456",
     },
     {
       pollId: Math.round(Math.random() * 100),
@@ -119,7 +105,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Haskell"),
       ],
       status: "ACTIVE",
-      roomcode: "1234567",
     },
     {
       pollId: Math.round(Math.random() * 100),
@@ -136,7 +121,6 @@ export function pollExamples(): Poll[] {
         defaultChoice("Hash Table"),
       ],
       status: "ACTIVE",
-      roomcode: "12345678",
     },
   ];
 }

@@ -13,7 +13,7 @@ export function FindPoll() {
   };
 
   const findPoll = () => {
-    navigate(`polls/${pollId}`);
+    navigate(`/polls/${pollId}`);
   };
 
   return (

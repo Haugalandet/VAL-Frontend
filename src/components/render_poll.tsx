@@ -21,10 +21,9 @@ export function RenderPoll(props: { poll: Poll }) {
   );
 }
 
-export function RenderPollTiny(props: { poll: Poll }) {
+export function RenderPollTiny(props: { poll: Poll; key: string }) {
   const navigate = useNavigate();
   const [cookie] = useCookies(["Authorization"]);
-
   const config: AxiosRequestConfig<{}> = {
     headers: {
       Authorization: cookie["Authorization"],
@@ -35,10 +34,10 @@ export function RenderPollTiny(props: { poll: Poll }) {
     axios
       .post(ApiRoot(`polls/${props.poll.pollId}/start`), {}, config)
       .then((res) => {
-        console.log(res);
+        navigate(`/polls/${props.poll.pollId}/view`);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -49,7 +48,7 @@ export function RenderPollTiny(props: { poll: Poll }) {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -65,10 +64,14 @@ export function RenderPollTiny(props: { poll: Poll }) {
       <small>{props.poll.description}</small>
       <br />
       {props.poll.choices.map((c) => {
-        return <p>{c.title}</p>;
+        return <p key={`${c.choiceId}`}>{c.title}</p>;
       })}
       {isOpen ? (
         <>
+          <label>
+            Roomcode
+            <p>{props.poll.roomcode}</p>
+          </label>
           <button onClick={closePoll} className="close">
             Close
           </button>
@@ -89,7 +92,10 @@ export function RenderPollTiny(props: { poll: Poll }) {
 }
 
 export function RenderPollVote(props: { poll: Poll }) {
-  const [selectedValue, setSelectedValue] = useState(""); // Initialize the state with an empty string
+  const [cookie] = useCookies(["Authorization"]);
+  const [selectedValue, setSelectedValue] = useState(
+    props.poll.choices[0].choiceId
+  ); // Initialize the state with an empty string
 
   // @ts-ignore
   const handleSelectChange = (event) => {
@@ -97,7 +103,30 @@ export function RenderPollVote(props: { poll: Poll }) {
   };
 
   const vote = () => {
-    console.log(selectedValue);
+    let val = selectedValue;
+    if (val === undefined) {
+      val = props.poll.choices[0].choiceId;
+    }
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: cookie["Authorization"],
+      },
+    };
+
+    axios
+      .post(
+        ApiRoot(`polls/${props.poll.pollId}/votes`),
+        {
+          choiceId: val,
+          voteCount: 1,
+        },
+        config
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -107,7 +136,7 @@ export function RenderPollVote(props: { poll: Poll }) {
       <select value={selectedValue} onChange={handleSelectChange}>
         {props.poll.choices.map((c) => {
           return (
-            <option value={c.title} key={c.title}>
+            <option value={c.choiceId} key={c.title}>
               {c.title}
             </option>
           );
@@ -149,12 +178,20 @@ export function CreatePoll(props: { poll: Poll }) {
         Authorization: cookie["Authorization"],
       },
     };
-
+    console.log(createdPoll);
     axios
       .post(ApiRoot("polls"), createdPoll, config)
       .then((r) => {
-        //@ts-ignore
-        navigate(`/polls/${r.data.pollId}/view`);
+        if (
+          createdPoll.startTime === undefined ||
+          isNaN(createdPoll.startTime.valueOf())
+        ) {
+          //@ts-ignore
+          navigate("/dashboard");
+        } else {
+          //@ts-ignore
+          navigate(`/polls/${r.data.pollId}/view`);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -204,7 +241,15 @@ export function CreatePoll(props: { poll: Poll }) {
         type="date"
         onChange={(e) => {
           let p = createdPoll;
-          p.startTime = new Date(Date.parse(e.target.value));
+
+          let d = Date.parse(e.target.value);
+
+          if (isNaN(d)) {
+            p.startTime = undefined;
+            return;
+          }
+
+          p.startTime = new Date(d);
           setCreatedPoll(p);
         }}
       />
@@ -249,7 +294,7 @@ function MultipleChoiceEditor({
   // @ts-ignore
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...options];
-    updatedOptions[index] = value;
+    updatedOptions[index] = defaultChoice(value);
     setOptions(updatedOptions);
     onOptionsChange(updatedOptions);
   };

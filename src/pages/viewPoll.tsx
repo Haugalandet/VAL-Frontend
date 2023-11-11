@@ -30,6 +30,16 @@ export function ViewPoll() {
       });
   }, [cookie, id]);
 
+  useEffect(() => {
+    const eventSource = new EventSource(ApiRoot(`polls/${id}/sse`));
+
+    eventSource.onmessage = (event) => {
+      const eventData = JSON.parse(event.data);
+
+      setPoll(eventData);
+    };
+  });
+
   return (
     <>
       <header>

@@ -7,15 +7,8 @@ export type Poll = {
   endTime?: Date;
   choices: Choice[];
   status: String;
-  roomcode: String;
+  roomcode?: String;
   hasUserVoted?: boolean;
-};
-
-export type User = {
-  userId?: number;
-  username: string;
-  password: string;
-  tokens: string;
 };
 
 export type Choice = {

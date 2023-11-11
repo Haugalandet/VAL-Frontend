@@ -49,8 +49,8 @@ export function Dashboard() {
         </article>
         <aside>
           {allPolls.map((poll) => {
-            console.log(poll);
-            return <RenderPollTiny poll={poll} />;
+            //@ts-ignore
+            return <RenderPollTiny poll={poll} key={`${poll.pollId}`} />;
           })}
         </aside>
       </main>
