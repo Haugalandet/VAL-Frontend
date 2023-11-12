@@ -40,7 +40,7 @@ export function LoginPage() {
       <main className="input">
         <h2>Poling Polions</h2>
         <h3>Login</h3>
-        <article>
+        <article className="login">
           <section>
             <label htmlFor="username">Username: &nbsp;</label>
             <br />

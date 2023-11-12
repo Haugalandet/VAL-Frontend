@@ -7,6 +7,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { defaultPoll } from "../utils/funcs";
 import { useParams } from "react-router";
 import { useCookies } from "react-cookie";
+import "../styles/create_poll.scss";
 
 export function CreatePollPage() {
   const [poll, setPoll] = useState(defaultPoll());
@@ -37,7 +38,9 @@ export function CreatePollPage() {
       </header>
       <main>
         <h1>Create poll</h1>
-        <CreatePoll poll={poll} />
+        <div className="create-poll.container">
+          <CreatePoll poll={poll} />
+        </div>
       </main>
       <Footer />
     </>

@@ -261,70 +261,51 @@ export function CreatePoll(props: { poll: Poll }) {
   };
 
   return (
-    <article>
-      <label>
-        Title
-        <input
-          type="text"
-          name="title"
-          placeholder={props.poll.title}
-          onChange={updateTitle}
-        />
-      </label>
-      <label>
-        Description
-        <input
-          type="text"
-          name="desc"
-          placeholder={props.poll.description}
-          onChange={updateDesc}
-        />
-      </label>
-      <label>
-        Choices
-        <MultipleChoiceEditor
-          choices={props.poll.choices}
-          onOptionsChange={updateChoice}
-        />
-      </label>
-      <label>
-        Need Login
-        <input type="checkbox" onChange={needLogin} />
-      </label>
-      <label>
-        Start Date
-        <input
-          type="date"
-          onChange={(e) => {
-            let d = new Date(Date.parse(e.target.value));
-            setStartTime(d);
-          }}
-        />
-      </label>
-      <label>
-        Start Time
-        <input
-          type="time"
-          onChange={(e) => {
-            const [hours, minutes] = e.target.value.split(":");
-            const d = new Date();
-            d.setHours(parseInt(hours));
-            d.setMinutes(parseInt(minutes));
-            setStartHour(d);
-          }}
-        />
-      </label>
-      <label>
-        End Date
-        <input
-          type="date"
-          onChange={(e) => handleTimeChange(e, setStartHour)}
-        />
-      </label>
-      <label>
-        End Time
-        <input type="time" onChange={(e) => handleTimeChange(e, setEndHour)} />
-      </label>
+    <article className="create-poll">
+      <label>Title</label>
+      <input
+        type="text"
+        name="title"
+        placeholder={props.poll.title}
+        onChange={updateTitle}
+      />
+      <label>Description</label>
+      <input
+        type="text"
+        name="desc"
+        placeholder={props.poll.description}
+        onChange={updateDesc}
+      />
+      <label>Choices</label>
+      <MultipleChoiceEditor
+        choices={props.poll.choices}
+        onOptionsChange={updateChoice}
+      />
+      <label>Need Login</label>
+      <input type="checkbox" onChange={needLogin} />
+      <label>Start Date</label>
+      <input
+        type="date"
+        onChange={(e) => {
+          let d = new Date(Date.parse(e.target.value));
+          setStartTime(d);
+        }}
+      />
+      <label>Start Time</label>
+      <input
+        type="time"
+        onChange={(e) => {
+          const [hours, minutes] = e.target.value.split(":");
+          const d = new Date();
+          d.setHours(parseInt(hours));
+          d.setMinutes(parseInt(minutes));
+          setStartHour(d);
+        }}
+      />
+      <label>End Date</label>
+      <input type="date" onChange={(e) => handleTimeChange(e, setStartHour)} />
+      <label>End Time</label>
+      <input type="time" onChange={(e) => handleTimeChange(e, setEndHour)} />
       <button onClick={createPoll}>Save</button>
     </article>
   );
