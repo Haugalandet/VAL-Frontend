@@ -12,7 +12,7 @@ export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [_, setCookie] = useCookies(["Authorization"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Authorization"]);
   const navigate = useNavigate();
 
   // @ts-ignore
@@ -34,6 +34,10 @@ export function RegisterPage() {
             password: password1,
           })
           .then((res) => {
+            if (cookie["Authorization"] !== undefined) {
+              removeCookie("Authorization");
+            }
+
             setCookie("Authorization", res.data);
             navigate("/dashboard");
           })

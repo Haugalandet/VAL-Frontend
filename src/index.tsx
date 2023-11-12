@@ -14,11 +14,6 @@ import { MissingPage } from "./pages/missingpage";
 import { ViewPoll } from "./pages/viewPoll";
 import { RefreshToken } from "./utils/authService";
 
-// Auth Refresher
-const tokenRefreshInterval = setInterval(() => {
-  RefreshToken();
-}, 10 * 60 * 1000); // 10 min in millisec
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -70,9 +65,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-// Cleanup
-
-const cleanup = () => clearInterval(tokenRefreshInterval);
-
-window.addEventListener("beforeunload", cleanup);

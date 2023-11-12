@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [_, setCookie] = useCookies(["Authorization"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Authorization"]);
   const navigate = useNavigate();
 
   // @ts-ignore
@@ -69,6 +69,10 @@ export function LoginPage() {
         password: password,
       })
       .then((res) => {
+        if (cookie["Authorization"] !== undefined) {
+          removeCookie("Authorization");
+        }
+
         setCookie("Authorization", res.data);
         navigate("/dashboard");
       })
