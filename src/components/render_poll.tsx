@@ -143,7 +143,12 @@ export function RenderPollVote(props: { poll: Poll }) {
 }
 
 export function CreatePoll(props: { poll: Poll }) {
-  const [createdPoll, setCreatedPoll] = useState(props.poll);
+  const [createdPoll, setCreatedPoll] = useState<Poll>(props.poll);
+  const [startTime, setStartTime] = useState<Date | undefined>();
+  const [startHour, setStartHour] = useState<Date | undefined>();
+  const [endTime, setEndTime] = useState<Date | undefined>();
+  const [endHour, setEndHour] = useState<Date | undefined>();
+
   const [cookie] = useCookies(["Authorization"]);
   const navigate = useNavigate();
 
@@ -167,13 +172,74 @@ export function CreatePoll(props: { poll: Poll }) {
     setCreatedPoll(p);
   };
 
+  //@ts-ignore
+  const needLogin = (e) => {
+    let p = createdPoll;
+    p.needLogin = e.target.value;
+    setCreatedPoll(p);
+  };
+
+  const handleTimeChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setTime: React.Dispatch<React.SetStateAction<Date | undefined>>
+  ) => {
+    const [hours, minutes] = e.target.value.split(":");
+    const d = new Date();
+    d.setHours(parseInt(hours, 10));
+    d.setMinutes(parseInt(minutes, 10));
+    setTime(d);
+  };
+
   const createPoll = () => {
     const config: AxiosRequestConfig = {
       headers: {
         Authorization: cookie["Authorization"],
       },
     };
-    console.log(createdPoll);
+
+    // TypeScript sucks balls
+    // Only starthour has been set, so we start today, at this hour
+    if (typeof startTime === "undefined" && typeof startHour !== "undefined") {
+      let d = new Date();
+      d.setHours(startHour.getHours());
+      d.setMinutes(startHour.getMinutes());
+      d.setSeconds(startHour.getSeconds());
+      createdPoll.startTime = d;
+    } else if (typeof startTime !== "undefined") {
+      createdPoll.startTime = startTime;
+    } else if (
+      typeof startTime !== "undefined" &&
+      typeof startHour !== "undefined"
+    ) {
+      // Combine both
+      let d: Date = startTime;
+      d.setHours(startHour.getHours());
+      d.setMinutes(startHour.getMinutes());
+      d.setSeconds(startHour.getSeconds());
+      createdPoll.startTime = d;
+    }
+
+    // End of times
+    if (typeof endTime === "undefined" && typeof endHour !== "undefined") {
+      let d = new Date();
+      d.setHours(endHour.getHours());
+      d.setMinutes(endHour.getMinutes());
+      d.setSeconds(endHour.getSeconds());
+      createdPoll.endTime = d;
+    } else if (typeof endTime !== "undefined") {
+      createdPoll.endTime = endTime;
+    } else if (
+      typeof endTime !== "undefined" &&
+      typeof endHour !== "undefined"
+    ) {
+      // Combine both
+      let d: Date = endTime;
+      d.setHours(endHour.getHours());
+      d.setMinutes(endHour.getMinutes());
+      d.setSeconds(endHour.getSeconds());
+      createdPoll.endTime = d;
+    }
+
     axios
       .post(ApiRoot("polls"), createdPoll, config)
       .then((r) => {
@@ -190,7 +256,8 @@ export function CreatePoll(props: { poll: Poll }) {
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => console.log(createdPoll));
   };
 
   return (
@@ -222,41 +289,42 @@ export function CreatePoll(props: { poll: Poll }) {
       </label>
       <label>
         Need Login
+        <input type="checkbox" onChange={needLogin} />
+      </label>
+      <label>
+        Start Date
         <input
-          type="checkbox"
+          type="date"
           onChange={(e) => {
-            let p = createdPoll;
-            p.needLogin = !!e.target.value;
-            setCreatedPoll(p);
+            let d = new Date(Date.parse(e.target.value));
+            setStartTime(d);
           }}
         />
       </label>
-      <label>Start Date</label>
-      <input
-        type="date"
-        onChange={(e) => {
-          let p = createdPoll;
-
-          let d = Date.parse(e.target.value);
-
-          if (isNaN(d)) {
-            p.startTime = undefined;
-            return;
-          }
-
-          p.startTime = new Date(d);
-          setCreatedPoll(p);
-        }}
-      />
-      <label>End Date</label>
-      <input
-        type="date"
-        onChange={(e) => {
-          let p = createdPoll;
-          p.endTime = new Date(Date.parse(e.target.value));
-          setCreatedPoll(p);
-        }}
-      />
+      <label>
+        Start Time
+        <input
+          type="time"
+          onChange={(e) => {
+            const [hours, minutes] = e.target.value.split(":");
+            const d = new Date();
+            d.setHours(parseInt(hours));
+            d.setMinutes(parseInt(minutes));
+            setStartHour(d);
+          }}
+        />
+      </label>
+      <label>
+        End Date
+        <input
+          type="date"
+          onChange={(e) => handleTimeChange(e, setStartHour)}
+        />
+      </label>
+      <label>
+        End Time
+        <input type="time" onChange={(e) => handleTimeChange(e, setEndHour)} />
+      </label>
       <button onClick={createPoll}>Save</button>
     </article>
   );
