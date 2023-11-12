@@ -30,10 +30,12 @@ export function ViewPoll() {
       .catch((res) => {
         console.error(res);
       });
-  }, [cookie, id]);
+  }, [cookie, id, navigate]);
 
   useEffect(() => {
-    const sse = new EventSource(ApiRoot(`polls/${id}/sse`));
+    const sse = new EventSource(ApiRoot(`polls/${id}/sse`), {
+      withCredentials: true,
+    });
 
     //@ts-ignore
     const handleStream = (data) => {

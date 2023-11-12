@@ -16,7 +16,14 @@ export function RegisterPage() {
   const navigate = useNavigate();
 
   // @ts-ignore
-  const register = (_) => {
+  const keyDown = (e) => {
+    if (e.key === "Enter") {
+      register();
+    }
+  };
+
+  // @ts-ignore
+  const register = (_?) => {
     if (password1 !== password2) {
       alert("Password are not equal");
       return;
@@ -92,6 +99,7 @@ export function RegisterPage() {
               type="password"
               id="passwd2"
               onChange={handlePassword2Change}
+              onKeyDown={keyDown}
             />
           </section>
         </article>

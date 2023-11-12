@@ -24,6 +24,13 @@ export function LoginPage() {
     setPassword(pswd);
   };
 
+  // @ts-ignore
+  const keyDown = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
+
   return (
     <>
       <header>
@@ -44,16 +51,18 @@ export function LoginPage() {
               itemType="text"
               id="username"
               onChange={handleUsernameChange}
+              onKeyDown={keyDown}
             ></input>
             <br />
             <input
               type="password"
               id="password"
               onChange={handlePasswordChange}
+              onKeyDown={keyDown}
             ></input>
           </section>
         </article>
-        <button className="login" onClick={() => login()}>
+        <button className="login" onClick={login}>
           Login
         </button>
       </main>
