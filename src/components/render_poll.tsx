@@ -23,6 +23,7 @@ export function RenderPoll(props: { poll: Poll }) {
 
 export function RenderPollTiny(props: { poll: Poll; key: string }) {
   const navigate = useNavigate();
+  const [open, setIsOpen] = useState(isPollOpen(props.poll));
   const [cookie] = useCookies(["Authorization"]);
   const config: AxiosRequestConfig<{}> = {
     headers: {
@@ -34,6 +35,7 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
     axios
       .post(ApiRoot(`polls/${props.poll.pollId}/start`), {}, config)
       .then((res) => {
+        setIsOpen(true);
         navigate(`/polls/${props.poll.pollId}/view`);
       })
       .catch((err) => {
@@ -45,6 +47,7 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
     axios
       .post(ApiRoot(`polls/${props.poll.pollId}/end`), {}, config)
       .then((res) => {
+        setIsOpen(false);
         console.log(res);
       })
       .catch((err) => {
@@ -56,8 +59,6 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
     navigate(`/polls/${props.poll.pollId}/view`);
   };
 
-  const isOpen = isPollOpen(props.poll);
-
   return (
     <article className="tiny-poll">
       <h4>{props.poll.title}</h4>
@@ -66,7 +67,7 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
       {props.poll.choices.map((c) => {
         return <p key={`${c.choiceId}`}>{c.title}</p>;
       })}
-      {isOpen ? (
+      {open ? (
         <>
           <label>
             Roomcode
@@ -93,17 +94,11 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
 
 export function RenderPollVote(props: { poll: Poll }) {
   const [cookie] = useCookies(["Authorization"]);
-  const [selectedValue, setSelectedValue] = useState(
-    props.poll.choices[0].choiceId
-  ); // Initialize the state with an empty string
+  const navigate = useNavigate();
 
-  // @ts-ignore
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-
-  const vote = () => {
-    let val = selectedValue;
+  //@ts-ignore
+  const vote = (e) => {
+    let val = e.target.value;
     if (val === undefined) {
       val = props.poll.choices[0].choiceId;
     }
@@ -125,6 +120,7 @@ export function RenderPollVote(props: { poll: Poll }) {
       )
       .then((res) => {
         console.log(res);
+        navigate("view");
       })
       .catch((err) => console.error(err));
   };
@@ -133,16 +129,15 @@ export function RenderPollVote(props: { poll: Poll }) {
     <article className="poll">
       <h2>{props.poll.title}</h2>
       <p>{props.poll.description}</p>
-      <select value={selectedValue} onChange={handleSelectChange}>
+      <section>
         {props.poll.choices.map((c) => {
           return (
-            <option value={c.choiceId} key={c.title}>
+            <p className="choice" key={c.choiceId} onClick={vote}>
               {c.title}
-            </option>
+            </p>
           );
         })}
-      </select>
-      <button onClick={() => vote()}>Vote</button>
+      </section>
     </article>
   );
 }
@@ -320,13 +315,13 @@ function MultipleChoiceEditor({
 
 export function RenderPollView(props: { poll: Poll }) {
   return (
-    <article className="poll">
+    <article className="view-poll">
       <h2>{props.poll.title}</h2>
       <p>{props.poll.description}</p>
       {props.poll.choices.map((c) => {
         return (
           <p>
-            {c.title}: {c.count === undefined ? 0 : c.count}
+            {c.title}: {c.voteCount === undefined ? 0 : c.voteCount}
           </p>
         );
       })}

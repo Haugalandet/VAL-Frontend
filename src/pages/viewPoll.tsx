@@ -31,12 +31,25 @@ export function ViewPoll() {
   }, [cookie, id]);
 
   useEffect(() => {
-    const eventSource = new EventSource(ApiRoot(`polls/${id}/sse`));
+    const sse = new EventSource(ApiRoot(`polls/${id}/sse`));
 
-    eventSource.onmessage = (event) => {
-      const eventData = JSON.parse(event.data);
+    //@ts-ignore
+    const handleStream = (data) => {
+      setPoll(data);
+    };
 
-      setPoll(eventData);
+    sse.onmessage = (event) => {
+      console.log(event);
+      handleStream(event.data);
+    };
+
+    sse.onerror = (err) => {
+      sse.close();
+      console.error(err);
+    };
+
+    return () => {
+      sse.close();
     };
   });
 

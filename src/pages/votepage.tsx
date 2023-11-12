@@ -5,6 +5,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { ApiRoot } from "../utils/consts";
 import { useNavigate, useParams } from "react-router";
 import "../styles/home.scss";
+import "../styles/poll.scss";
 import { RenderPollVote } from "../components/render_poll";
 import { defaultPoll } from "../utils/funcs";
 import { useCookies } from "react-cookie";
@@ -25,14 +26,14 @@ export function VotePage() {
       // @ts-ignore
       .get(ApiRoot(`polls/${id}`), config)
       .then((res) => {
-        if (res.data.hasUserVoted && res.data.needLogin) {
+        if (res.data.hasUserVoted || res.data.needLogin) {
           navigate(`/polls/${res.data.pollId}/view`);
         }
 
         setPoll(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, [cookie, id, navigate]);
 

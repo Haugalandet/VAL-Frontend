@@ -15,5 +15,5 @@ export type Choice = {
   choiceId?: number;
   title: string;
   description: string;
-  count?: number;
+  voteCount?: number;
 };
