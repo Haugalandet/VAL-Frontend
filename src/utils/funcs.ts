@@ -6,7 +6,6 @@ export function defaultTest(): Boolean {
 
 export function defaultPoll(): Poll {
   return {
-    pollId: undefined,
     title: "NONE",
     needLogin: false,
     description: "NONE\nNONE\nNONE",

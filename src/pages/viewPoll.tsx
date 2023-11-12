@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
@@ -12,7 +12,7 @@ export function ViewPoll() {
   const { id } = useParams<{ id: string }>();
   const [poll, setPoll] = useState(defaultPoll());
   const [cookie] = useCookies(["Authorization"]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const config: AxiosRequestConfig = {
       headers: {
@@ -22,8 +22,10 @@ export function ViewPoll() {
     axios
       .get(ApiRoot(`polls/${id}`), config)
       .then((res) => {
-        console.log(res);
         setPoll(res.data);
+        if (res.data.startTime === null) {
+          navigate("/poll");
+        }
       })
       .catch((res) => {
         console.error(res);

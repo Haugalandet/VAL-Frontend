@@ -26,23 +26,22 @@ export function VotePage() {
       // @ts-ignore
       .get(ApiRoot(`polls/${id}`), config)
       .then((res) => {
-        if (res.data.hasUserVoted || res.data.needLogin) {
-          navigate(`/polls/${res.data.pollId}/view`);
+        console.log(res.data);
+        if (
+          res.data.hasUserVoted ||
+          res.data.needLogin ||
+          res.data.startTime === null
+        ) {
+          navigate(`/polls/${id}/view`);
         }
 
         setPoll(res.data);
       })
       .catch((err) => {
+        navigate(`/poll`);
         console.error(err);
       });
   }, [cookie, id, navigate]);
-
-  /*
-    TODO: Create error vote page
-  */
-  if (poll.pollId === undefined) {
-    navigate(`/poll`);
-  }
 
   return (
     <>
@@ -51,6 +50,7 @@ export function VotePage() {
       </header>
       <main className="input">
         <h2>Poling Poloins</h2>
+        {/*@ts-ignore*/}
         <RenderPollVote poll={poll} />
       </main>
       <Footer />
