@@ -33,13 +33,11 @@ export function ViewPoll() {
   }, [cookie, id, navigate]);
 
   useEffect(() => {
-    const sse = new EventSource(ApiRoot(`polls/${id}/sse`), {
-      withCredentials: true,
-    });
+    const sse = new EventSource(ApiRoot(`polls/${id}/sse`));
 
     //@ts-ignore
     const handleStream = (data) => {
-      setPoll(data);
+      setPoll(JSON.parse(data));
     };
 
     sse.onmessage = (event) => {
