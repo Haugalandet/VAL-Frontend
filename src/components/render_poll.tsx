@@ -71,7 +71,7 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
         <>
           <label>
             Roomcode
-            <p>{props.poll.roomcode}</p>
+            <p>{props.poll.roomCode}</p>
           </label>
           <button onClick={closePoll} className="close">
             Close
@@ -120,7 +120,7 @@ export function RenderPollVote(props: { poll: Poll }) {
       )
       .then((res) => {
         console.log(res);
-        navigate("view");
+        navigate(`/polls/${props.poll.pollId}/view`);
       })
       .catch((err) => console.error(err));
   };

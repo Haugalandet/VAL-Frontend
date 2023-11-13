@@ -7,7 +7,7 @@ export type Poll = {
   endTime?: Date;
   choices: Choice[];
   status: String;
-  roomcode?: String;
+  roomCode?: String;
   hasUserVoted?: boolean;
 };
 

@@ -11,7 +11,7 @@ import { defaultPoll } from "../utils/funcs";
 import { useCookies } from "react-cookie";
 
 export function VotePage() {
-  const { id } = useParams<{ id: string }>();
+  const { roomCode } = useParams<{ roomCode: string }>();
   const [poll, setPoll] = useState(defaultPoll());
   const [cookie] = useCookies(["Authorization"]);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export function VotePage() {
     };
     axios
       // @ts-ignore
-      .get(ApiRoot(`polls/${id}`), config)
+      .get(ApiRoot(`polls/room/${roomCode}`), config)
       .then((res) => {
         console.log(res.data);
         if (
@@ -32,7 +32,7 @@ export function VotePage() {
           res.data.needLogin ||
           res.data.startTime === null
         ) {
-          navigate(`/polls/${id}/view`);
+          navigate(`/polls/${res.data.pollId}/view`);
         }
 
         setPoll(res.data);
@@ -41,7 +41,7 @@ export function VotePage() {
         navigate(`/poll`);
         console.error(err);
       });
-  }, [cookie, id, navigate]);
+  }, [cookie, roomCode, navigate]);
 
   return (
     <>
