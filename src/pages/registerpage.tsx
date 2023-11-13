@@ -78,7 +78,7 @@ export function RegisterPage() {
       <main className="input">
         <h2>Poling Polions</h2>
         <h3>Register</h3>
-        <article>
+        <article className="register">
           <section>
             <label htmlFor="username">Username: &nbsp;</label>
             <br />
