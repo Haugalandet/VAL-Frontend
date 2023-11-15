@@ -175,7 +175,7 @@ export function CreatePoll(props: { poll: Poll }) {
   //@ts-ignore
   const needLogin = (e) => {
     let p = createdPoll;
-    p.needLogin = e.target.value;
+    p.needLogin = e.target.value === "on";
     setCreatedPoll(p);
   };
 
@@ -305,7 +305,7 @@ export function CreatePoll(props: { poll: Poll }) {
       <label>End Date</label>
       <input type="date" onChange={(e) => handleTimeChange(e, setStartHour)} />
       <label>End Time</label>
-      <input type="time" onChange={(e) => handleTimeChange(e, setEndHour)} />
+      <input type="time" onChange={(e) => handleTimeChange(e, setEndTime)} />
       <button onClick={createPoll}>Save</button>
     </article>
   );
