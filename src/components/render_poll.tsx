@@ -67,12 +67,12 @@ export function RenderPollTiny(props: { poll: Poll; key: string }) {
       {props.poll.choices.map((c) => {
         return <p key={`${c.choiceId}`}>{c.title}</p>;
       })}
+      <label>
+        Roomcode
+        <p>{props.poll.roomCode}</p>
+      </label>
       {open ? (
         <>
-          <label>
-            Roomcode
-            <p>{props.poll.roomCode}</p>
-          </label>
           <button onClick={closePoll} className="close">
             Close
           </button>

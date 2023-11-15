@@ -41,7 +41,6 @@ export function ViewPoll() {
     };
 
     sse.onmessage = (event) => {
-      console.log(event);
       handleStream(event.data);
     };
 
