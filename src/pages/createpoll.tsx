@@ -1,39 +1,35 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { RenderPoll } from "../components/render_poll";
+import { CreatePoll } from "../components/render_poll";
 import { ApiRoot } from "../utils/consts";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { defaultPoll } from "../utils/funcs";
+import { useParams } from "react-router";
+import { useCookies } from "react-cookie";
+import "../styles/create_poll.scss";
 
-export function CreatePollPage(props: { poll_id: number }) {
-  const [poll, setPoll] = useState(null);
+export function CreatePollPage() {
+  const [poll, setPoll] = useState(defaultPoll());
+  const [cookie] = useCookies(["Authorization"]);
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: cookie["Authorization"],
+      },
+    };
+
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))
+      .get(ApiRoot(`poll/${id}/vote`), config)
       .then((res) => {
         setPoll(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.poll_id]);
-
-  if (!poll) {
-    // return <Navigate to={`poll/${props.poll_id}/vote`} />;
-  }
-
-  let testPoll = {
-    id: 69,
-    title: "Testicle Poll",
-    description: "Are testicles?",
-    choices: [
-      "Yes",
-      "No",
-      "Maybe",
-      "Who are you, and how did you get into my house???",
-    ],
-  };
+  }, [id, cookie]);
 
   return (
     <>
@@ -41,8 +37,10 @@ export function CreatePollPage(props: { poll_id: number }) {
         <Navbar />
       </header>
       <main>
-        <h1>Edit poll</h1>
-        <RenderPoll poll={testPoll} />
+        <h1>Create poll</h1>
+        <div className="create-poll.container">
+          <CreatePoll poll={poll} />
+        </div>
       </main>
       <Footer />
     </>

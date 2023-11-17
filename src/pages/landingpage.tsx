@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Publicpoll } from "../components/publicpoll";
-import { Title } from "../components/title";
-//import "../styles/landingpage.scss";
+import "../styles/landingpage.scss";
+import { FindPoll } from "../components/find_poll";
 
 export function LandingPage() {
   return (
@@ -10,7 +10,14 @@ export function LandingPage() {
       <header>
         <Navbar />
       </header>
-      <main>Kahoot</main>
+      <main id="landingpagemain">
+        <article>
+          <FindPoll />
+        </article>
+      </main>
+
+      {/*om man er logget inn eller ikke må man ha id-en til pollen for å stemme,
+      noen poller sjekker i tillegg om man er logget inn */}
       <Footer />
     </>
   );

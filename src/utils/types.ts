@@ -1,6 +1,19 @@
 export type Poll = {
-  id: number;
+  pollId?: number;
   title: string;
   description: string;
-  choices: string[];
+  needLogin: boolean;
+  startTime?: Date;
+  endTime?: Date;
+  choices: Choice[];
+  status: String;
+  roomCode?: String;
+  hasUserVoted?: boolean;
+};
+
+export type Choice = {
+  choiceId?: number;
+  title: string;
+  description: string;
+  voteCount?: number;
 };

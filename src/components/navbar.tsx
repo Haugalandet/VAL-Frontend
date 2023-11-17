@@ -1,24 +1,41 @@
 import "../styles/navbar.scss";
 import "../styles/home.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "../assets/logo.png";
+import { useCookies } from "react-cookie";
 
 export function Navbar() {
+  const [cookie, _, removeCookie] = useCookies(["Authorization"]);
+  const navigate = useNavigate();
+  const isLoggedIn = () => {
+    return cookie["Authorization"] !== undefined;
+  };
+
+  const logout = () => {
+    removeCookie("Authorization");
+    navigate("/");
+  };
+
   return (
     <nav>
-      
-      <NavLink to="/" className="logo-link">
-        <img src={logo} alt="VAL Logo"/>
+      <NavLink to={!isLoggedIn() ? "/" : "/dashboard"} className="logo-link">
+        <img src={logo} alt="VAL Logo" />
       </NavLink>
-      <div>Poloins AS</div>
+      <div className="title">Poloins AS</div>
       <div className="buttonsdiv">
-        <NavLink to="/login">
-          <button>Logg inn</button>
-        </NavLink>
-        <NavLink to="/register">
-          <button>Registrer bruker</button>
-        </NavLink>
+        {isLoggedIn() ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <>
+            <NavLink to="/register">
+              <button>Register</button>
+            </NavLink>
+            <NavLink to="/login">
+              <button>Login</button>
+            </NavLink>
+          </>
+        )}
       </div>
     </nav>
   );

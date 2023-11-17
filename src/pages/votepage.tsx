@@ -1,50 +1,57 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
-import { Title } from "../components/title";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ApiRoot } from "../utils/consts";
-import { Navigate } from "react-router";
-import { RenderPoll } from "../components/render_poll";
+import { useNavigate, useParams } from "react-router";
+import "../styles/home.scss";
+import "../styles/poll.scss";
+import { RenderPollVote } from "../components/render_poll";
+import { defaultPoll } from "../utils/funcs";
+import { useCookies } from "react-cookie";
 
-export function VotePage(props: { poll_id: string }) {
-  const [poll, setPoll] = useState(null);
+export function VotePage() {
+  const { roomCode } = useParams<{ roomCode: string }>();
+  const [poll, setPoll] = useState(defaultPoll());
+  const [cookie] = useCookies(["Authorization"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: cookie["Authorization"],
+      },
+    };
     axios
-      .get(ApiRoot(`poll/${props.poll_id}/vote`))//poll instamce instead
+      // @ts-ignore
+      .get(ApiRoot(`polls/room/${roomCode}`), config)
       .then((res) => {
+        console.log(res.data);
+        if (
+          res.data.hasUserVoted ||
+          res.data.needLogin ||
+          res.data.startTime === null
+        ) {
+          navigate(`/polls/${res.data.pollId}/view`);
+        }
+
         setPoll(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        navigate(`/poll`);
+        console.error(err);
       });
-  }, [props.poll_id]);
-
-  if (!poll) {
-    // return <Navigate to={`poll/${props.poll_id}/vote`} />;
-  }
-
-  let testPoll = {
-    id: 69,
-    title: "Testicle Poll",
-    description: "Are testicles?",
-    choices: [
-      "Yes",
-      "No",
-      "Maybe",
-      "Who are you, and how did you get into my house???",
-    ],
-  };
+  }, [cookie, roomCode, navigate]);
 
   return (
     <>
       <header>
         <Navbar />
       </header>
-      <main>
-        <Title title="Poling Poloins" />
-        <RenderPoll poll={testPoll} />
+      <main className="input">
+        <h2>Poling Poloins</h2>
+        {/*@ts-ignore*/}
+        <RenderPollVote poll={poll} />
       </main>
       <Footer />
     </>

@@ -1,6 +1,50 @@
-article {
+article.poll,
+article.tiny-poll,
+article.view-poll {
   max-width: fit-content;
   display: block;
-  border: 1px #bfdf8e solid;
   border-radius: 6px;
+}
+
+article.tiny-poll,
+article.poll,
+article.view-poll {
+  background-color: orange;
+  margin: 1rem;
+  padding: 0.5rem;
+  * {
+    padding: 0.25rem;
+    margin: 0.25rem;
+  }
+
+  p {
+    border: 1px #bfdf8e solid;
+    border-radius: 6px;
+    background-color: #bfdf8e;
+  }
+
+  button {
+    padding: 0.25rem;
+  }
+
+  button.open {
+    background-color: green;
+  }
+  button.close {
+    background-color: red;
+  }
+  button.view {
+    background-color: #bfdf8e;
+  }
+  button.edit {
+    background-color: #bfdf8e;
+  }
+}
+
+article.poll {
+  p:hover {
+    cursor: pointer;
+    background-color: #fcde76;
+    border-color: #fcde76;
+  }
 }

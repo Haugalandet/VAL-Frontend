@@ -1,18 +1,63 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import { Dashboard } from "./pages/dashboard";
+import { LoginPage } from "./pages/loginpage";
+import { RegisterPage } from "./pages/registerpage";
+import { CreatePollPage } from "./pages/createpoll";
+import { VotePage } from "./pages/votepage";
+import { MissingPage } from "./pages/missingpage";
+import { ViewPoll } from "./pages/viewPoll";
+import { RefreshToken } from "./utils/authService";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "dashboard/create",
+    element: <CreatePollPage />,
+  },
+  {
+    path: "/polls/:id/view",
+    element: <ViewPoll />,
+  },
+  {
+    path: "/polls/:roomCode",
+    element: <VotePage />,
+  },
+  {
+    path: "/*",
+    element: <MissingPage />,
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>
 );
 
