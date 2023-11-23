@@ -98,7 +98,7 @@ export function RenderPollVote(props: { poll: Poll }) {
 
   //@ts-ignore
   const vote = (e) => {
-    let val = e.target.value;
+    let val = e.target.key;
     if (val === undefined) {
       val = props.poll.choices[0].choiceId;
     }
